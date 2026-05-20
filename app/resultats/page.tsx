@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { PortalBg } from "@/components/PortalBg";
 import { Topbar } from "@/components/Topbar";
 import { Footer } from "@/components/Footer";
 import { Section } from "@/components/Section";
@@ -39,7 +38,6 @@ export default function ResultatsPage() {
   if (!data) {
     return (
       <>
-        <PortalBg />
         <Topbar />
         <Section hero>
           <div style={{ textAlign: "center", maxWidth: "560px", margin: "0 auto" }}>
@@ -65,7 +63,6 @@ export default function ResultatsPage() {
 
   return (
     <>
-      <PortalBg />
       <Topbar />
 
       {/* ─── Hero résultats ─── */}

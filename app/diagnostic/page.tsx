@@ -4,7 +4,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { PortalBg } from "@/components/PortalBg";
 import { LogoMark } from "@/components/LogoMark";
 import { Button } from "@/components/Button";
 import { ProgressBar } from "@/components/diagnostic/ProgressBar";
@@ -53,7 +52,6 @@ export default function DiagnosticPage() {
 
   return (
     <>
-      <PortalBg />
       <div className="diag-shell">
         <header className="diag-header">
           <div className="diag-header-inner">
