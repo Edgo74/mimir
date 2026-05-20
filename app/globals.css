@@ -117,3 +117,46 @@ svg {
 .dark-section .display em {
   color: var(--accent);
 }
+
+/* ─── CTA color classes (bulletproof — Tailwind v4 token utilities were flaky) ─── */
+.cta-primary {
+  background: var(--ink);
+  color: var(--paper);
+  transition: background 150ms ease;
+}
+.cta-primary:hover {
+  background: var(--ink-2);
+}
+.cta-primary-invert {
+  background: var(--paper);
+  color: var(--ink-2);
+  transition: background 150ms ease;
+}
+.cta-primary-invert:hover {
+  background: var(--paper-2);
+}
+.cta-ghost {
+  color: var(--ink);
+  border-bottom: 1px solid var(--ink-line);
+  transition: border-color 150ms ease;
+}
+.cta-ghost:hover {
+  border-bottom-color: var(--ink);
+}
+.cta-ghost-invert {
+  color: var(--paper);
+  border-bottom: 1px solid rgba(244, 239, 230, 0.4);
+  transition: border-color 150ms ease;
+}
+.cta-ghost-invert:hover {
+  border-bottom-color: var(--paper);
+}
+.cta-inline {
+  color: var(--ink);
+  border-bottom: 1px solid var(--ink);
+  transition: color 150ms ease, border-color 150ms ease;
+}
+.cta-inline:hover {
+  color: var(--accent-deep);
+  border-bottom-color: var(--accent-deep);
+}

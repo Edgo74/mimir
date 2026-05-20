@@ -343,25 +343,12 @@ export default function Home() {
             engagement, sans carte bancaire — juste votre email professionnel.
           </p>
           <div className="mt-11 flex items-center justify-center gap-7 flex-wrap">
-            <a
-              href="/diagnostic"
-              className="group inline-flex items-center gap-2 font-medium text-[16px] bg-paper text-ink-2 px-[22px] py-[14px] transition-colors duration-150 hover:bg-paper-2"
-            >
-              <span>Démarrer mon diagnostic</span>
-              <span className="inline-block transition-transform duration-200 group-hover:translate-x-[3px]">
-                →
-              </span>
-            </a>
-            <a
-              href="#tarifs"
-              className="group inline-flex items-baseline gap-2 text-[16px] font-medium text-paper border-b pb-1 transition-colors duration-150 hover:border-paper"
-              style={{ borderColor: "rgba(244,239,230,0.4)" }}
-            >
-              <span>Voir les tarifs</span>
-              <span className="inline-block transition-transform duration-200 group-hover:translate-x-[3px]">
-                →
-              </span>
-            </a>
+            <LinkCTA href="/diagnostic" variant="primary" invert>
+              Démarrer mon diagnostic
+            </LinkCTA>
+            <LinkCTA href="#tarifs" variant="ghost" invert>
+              Voir les tarifs
+            </LinkCTA>
           </div>
         </div>
       </section>

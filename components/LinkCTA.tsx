@@ -9,6 +9,8 @@ type Props = {
   arrow?: boolean;
   children: ReactNode;
   className?: string;
+  /** Render on a dark section background — flips primary to paper-on-ink */
+  invert?: boolean;
 };
 
 export function LinkCTA({
@@ -17,12 +19,13 @@ export function LinkCTA({
   arrow = true,
   children,
   className = "",
+  invert = false,
 }: Props) {
   if (variant === "primary") {
     return (
       <Link
         href={href}
-        className={`group inline-flex items-center gap-2 font-medium text-[16px] bg-ink text-paper px-[22px] py-[14px] rounded-none transition-colors duration-150 hover:bg-ink-2 ${className}`}
+        className={`cta-primary${invert ? "-invert" : ""} group inline-flex items-center gap-2 font-medium text-[16px] px-[22px] py-[14px] ${className}`}
       >
         <span>{children}</span>
         {arrow && (
@@ -37,7 +40,7 @@ export function LinkCTA({
     return (
       <Link
         href={href}
-        className={`group inline-flex items-baseline gap-2 text-[16px] font-medium text-ink border-b border-ink-line pb-1 transition-colors duration-150 hover:border-ink ${className}`}
+        className={`cta-ghost${invert ? "-invert" : ""} group inline-flex items-baseline gap-2 text-[16px] font-medium pb-1 ${className}`}
       >
         <span>{children}</span>
         {arrow && (
@@ -52,7 +55,7 @@ export function LinkCTA({
   return (
     <Link
       href={href}
-      className={`group inline-flex items-baseline gap-2 text-[16px] font-medium text-ink border-b border-ink pb-1 transition-colors duration-150 hover:text-accent-deep hover:border-accent-deep ${className}`}
+      className={`cta-inline group inline-flex items-baseline gap-2 text-[16px] font-medium pb-1 ${className}`}
     >
       <span>{children}</span>
       {arrow && (
