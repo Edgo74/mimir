@@ -68,7 +68,7 @@ export function recos(answers: Answers): Reco[] {
     list.push({
       tag: "Acculturation",
       title: "Acculturation IA en 2 demi-journées",
-      desc: "Formation Qualiopi, finançable OPCO Atlas, pour donner à toute l'équipe les bons réflexes (et les bons garde-fous).",
+      desc: "Formation Qualiopi, finançable OPCO, pour donner à toute l'équipe les bons réflexes (et les bons garde-fous).",
     });
   }
   if (blocker === "roi") {

@@ -51,9 +51,9 @@ export function CalEmbed() {
       layout: "month_view",
     });
     (window as any).Cal.ns.restitution("ui", {
-      theme: "light",
+      theme: "dark",
       cssVarsPerTheme: {
-        light: { "cal-brand": "#16140F" },
+        dark: { "cal-brand": "#00D4FF" },
       },
       hideEventTypeDetails: false,
       layout: "month_view",
@@ -62,73 +62,60 @@ export function CalEmbed() {
 
   if (!isConfigured) {
     return (
-      <div
-        className="relative border mx-auto max-w-[640px]"
-        style={{
-          background: "color-mix(in oklab, var(--paper) 92%, var(--ink) 4%)",
-          borderColor: "rgba(244, 239, 230, 0.3)",
-          padding: "48px 40px",
-        }}
-      >
-        {/* inner inset border */}
+      <div className="res-cal-fallback">
         <span
-          aria-hidden
-          className="pointer-events-none absolute"
-          style={{ inset: "14px", border: "1px solid rgba(244, 239, 230, 0.12)" }}
-        />
-        <div className="relative z-10 flex flex-col gap-5 items-center text-center">
-          <span
-            className="font-mono uppercase"
-            style={{
-              fontSize: "10.5px",
-              letterSpacing: "0.16em",
-              color: "rgba(244, 239, 230, 0.42)",
-            }}
-          >
-            Cal.com · Setup requis
-          </span>
-          <h3
-            className="font-display italic m-0"
-            style={{
-              fontSize: "clamp(28px, 3.4vw, 40px)",
-              lineHeight: 1.1,
-              letterSpacing: "-0.015em",
-              color: "var(--ink)",
-            }}
-          >
-            « Configurez votre embed Cal.com »
-          </h3>
-          <p
-            className="m-0 max-w-[44ch]"
-            style={{
-              fontSize: "15px",
-              lineHeight: 1.55,
-              color: "var(--ink-soft)",
-            }}
-          >
-            Définissez la variable <code style={{ fontFamily: "var(--font-mono)", fontSize: "13px", color: "var(--accent-deep)" }}>NEXT_PUBLIC_CAL_LINK</code> avec votre lien
-            (ex. <code style={{ fontFamily: "var(--font-mono)", fontSize: "13px", color: "var(--accent-deep)" }}>monusername/restitution-45min</code>) dans
-            <code style={{ fontFamily: "var(--font-mono)", fontSize: "13px", color: "var(--accent-deep)" }}> .env.local</code> en dev,
-            ou dans <span style={{ fontStyle: "italic" }}>Vercel → Settings → Environment Variables</span> en prod.
-          </p>
-          <a
-            href="https://cal.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group inline-flex items-baseline gap-2 mt-1 font-medium"
-            style={{
-              fontSize: "14px",
-              color: "var(--ink)",
-              borderBottom: "1px solid var(--ink)",
-              paddingBottom: "3px",
-            }}
-          >
-            <span>Créer un compte Cal.com gratuit</span>
-            <span className="inline-block transition-transform duration-200 group-hover:translate-x-[3px]">
-              →
-            </span>
-          </a>
-        </div>
+          style={{
+            fontFamily: "var(--font-jetbrains-mono), monospace",
+            fontSize: "10.5px",
+            letterSpacing: "0.20em",
+            textTransform: "uppercase",
+            fontWeight: 600,
+            color: "var(--cyan-neon)",
+          }}
+        >
+          Cal.com · Setup requis
+        </span>
+        <h3
+          style={{
+            fontFamily: "var(--font-syne), sans-serif",
+            fontSize: "clamp(28px, 3.4vw, 40px)",
+            fontWeight: 700,
+            letterSpacing: "-0.8px",
+            color: "#fff",
+            margin: 0,
+            lineHeight: 1.1,
+          }}
+        >
+          Configurez votre embed Cal.com
+        </h3>
+        <p
+          style={{
+            fontFamily: "var(--font-inter), sans-serif",
+            fontSize: "15px",
+            lineHeight: 1.55,
+            color: "var(--text-on-dark-muted)",
+            margin: 0,
+            maxWidth: "44ch",
+          }}
+        >
+          Définissez{" "}
+          <code style={{ fontFamily: "var(--font-jetbrains-mono), monospace", color: "var(--cyan-neon)" }}>
+            NEXT_PUBLIC_CAL_LINK
+          </code>{" "}
+          (format <code style={{ fontFamily: "var(--font-jetbrains-mono), monospace", color: "var(--cyan-neon)" }}>username/event-slug</code>) dans
+          <code style={{ fontFamily: "var(--font-jetbrains-mono), monospace", color: "var(--cyan-neon)" }}> .env.local</code> en dev,
+          ou Vercel → Environment Variables en prod.
+        </p>
+        <a
+          href="https://cal.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn btn-ghost"
+          style={{ marginTop: "8px" }}
+        >
+          <span>Créer un compte Cal.com</span>
+          <span className="arrow">→</span>
+        </a>
       </div>
     );
   }
@@ -136,8 +123,14 @@ export function CalEmbed() {
   return (
     <div
       id="cal-inline"
-      style={{ width: "100%", minHeight: "640px", overflow: "scroll", background: "#F4EFE6" }}
-      className="border border-paper/30"
+      style={{
+        width: "100%",
+        minHeight: "640px",
+        overflow: "scroll",
+        background: "var(--encre)",
+        border: "1px solid var(--rule-dark)",
+        borderRadius: "14px",
+      }}
     />
   );
 }

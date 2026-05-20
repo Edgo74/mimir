@@ -3,12 +3,14 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Brand } from "@/components/Brand";
+import { PortalBg } from "@/components/PortalBg";
+import { Topbar } from "@/components/Topbar";
 import { Footer } from "@/components/Footer";
-import { Eyebrow } from "@/components/Eyebrow";
-import { DisplayHeading } from "@/components/DisplayHeading";
-import { LinkCTA } from "@/components/LinkCTA";
-import { HairlineGrid } from "@/components/HairlineGrid";
+import { Section } from "@/components/Section";
+import { Kicker } from "@/components/Kicker";
+import { SectionTitle } from "@/components/SectionTitle";
+import { SectionFooter } from "@/components/SectionFooter";
+import { Button } from "@/components/Button";
 import { ScoreGauge } from "@/components/resultats/ScoreGauge";
 import { CalEmbed } from "@/components/resultats/CalEmbed";
 import { computeScore, quartile, recos, estimatedHoursSaved, Answers } from "@/lib/scoring";
@@ -36,42 +38,23 @@ export default function ResultatsPage() {
 
   if (!data) {
     return (
-      <div className="min-h-screen flex flex-col">
-        <header
-          className="sticky top-0 z-40 border-b border-ink-line-soft backdrop-blur-[18px]"
-          style={{ background: "color-mix(in oklab, var(--paper) 78%, transparent)" }}
-        >
-          <div
-            className="flex items-center justify-between mx-auto"
-            style={{ maxWidth: "var(--shell)", padding: "22px 36px" }}
-          >
-            <Brand />
-            <Link
-              href="/"
-              className="font-mono text-[11px] tracking-[0.14em] uppercase text-ink-mute hover:text-ink"
-            >
-              Accueil
-            </Link>
-          </div>
-        </header>
-        <main className="flex-1 flex items-center justify-center px-9 py-20">
-          <div className="text-center max-w-md">
-            <Eyebrow numero="—" centered>Aucun diagnostic</Eyebrow>
-            <h1 className="font-display text-[clamp(34px,4.4vw,56px)] tracking-[-0.015em] leading-[1.05] text-ink mt-4 display">
-              Pas encore de <em className="italic text-accent-deep">diagnostic</em>.
-            </h1>
-            <p className="mt-5 text-[17px] text-ink-soft leading-[1.55]">
+      <>
+        <PortalBg />
+        <Topbar />
+        <Section hero>
+          <div style={{ textAlign: "center", maxWidth: "560px", margin: "0 auto" }}>
+            <Kicker>Aucun diagnostic</Kicker>
+            <SectionTitle html="Pas encore de <em>diagnostic</em>." />
+            <p className="section-sub" style={{ margin: "0 auto 32px" }}>
               Lancez le diagnostic en 2 minutes pour découvrir votre score IA cabinet.
             </p>
-            <div className="mt-9 flex justify-center">
-              <LinkCTA href="/diagnostic" variant="primary">
-                Démarrer le diagnostic
-              </LinkCTA>
-            </div>
+            <Button href="/diagnostic" variant="cyan">
+              Démarrer le diagnostic
+            </Button>
           </div>
-        </main>
+        </Section>
         <Footer />
-      </div>
+      </>
     );
   }
 
@@ -81,193 +64,133 @@ export default function ResultatsPage() {
   const { hours, staff } = estimatedHoursSaved(data);
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <header
-        className="sticky top-0 z-40 border-b border-ink-line-soft backdrop-blur-[18px]"
-        style={{ background: "color-mix(in oklab, var(--paper) 78%, transparent)" }}
-      >
-        <div
-          className="flex items-center justify-between mx-auto"
-          style={{ maxWidth: "var(--shell)", padding: "22px 36px" }}
-        >
-          <Brand />
-          <Link
-            href="/"
-            className="font-mono text-[11px] tracking-[0.14em] uppercase text-ink-mute hover:text-ink"
-          >
-            Accueil
-          </Link>
+    <>
+      <PortalBg />
+      <Topbar />
+
+      {/* ─── Hero résultats ─── */}
+      <Section hero id="top">
+        <Kicker pulse index="01">Rapport généré · {data._cabinet || "votre cabinet"}</Kicker>
+
+        <div className="res-hero">
+          <div>
+            <SectionTitle
+              as="h1"
+              html="Votre <em>score IA</em> cabinet."
+              className="hero-h1"
+              style={{ fontSize: "clamp(48px, 6.4vw, 88px)" }}
+            />
+            <p
+              className="hero-lead"
+              style={{ marginTop: "28px" }}
+            >
+              Vous êtes dans le{" "}
+              <strong>{q.label}</strong> des cabinets d&apos;expertise comptable de votre taille.
+              Voici ce qu&apos;on vous recommande.
+            </p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.4, duration: 0.4 }}
+              className="res-roi"
+            >
+              <span className="res-roi-icon" aria-hidden />
+              <div>
+                <div className="res-roi-value">
+                  ~{hours}
+                  <span className="small">h/mois</span>
+                </div>
+                <div className="res-roi-lbl">
+                  économisées en moyenne sur {staff} collaborateur{staff > 1 ? "s" : ""} équivalent
+                  temps plein.
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <ScoreGauge score={score} />
+          </div>
         </div>
-      </header>
 
-      <main className="flex-1">
-        {/* ─── Hero résultats ─── */}
-        <section className="pt-[80px] pb-[100px]">
-          <div className="shell">
-            <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] gap-20 max-md:gap-14 items-center">
-              <div>
-                <Eyebrow pulse numero="001">
-                  Rapport généré · {data._cabinet || "votre cabinet"}
-                </Eyebrow>
-                <DisplayHeading
-                  as="h1"
-                  className="mt-[26px]"
-                  html={`Votre <em>score IA</em><br />cabinet.`}
-                />
-                <p className="mt-9 text-[19px] leading-[1.5] text-ink-soft max-w-[52ch]">
-                  Vous êtes dans le{" "}
-                  <span className="text-ink font-medium">{q.label}</span> des cabinets d&apos;expertise
-                  comptable de votre taille. Voici ce qu&apos;on vous recommande.
-                </p>
+        <SectionFooter index="01" label="Score · ᛗᛁᛗᛁᚱ" total="03" />
+      </Section>
 
-                <motion.div
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 1.4, duration: 0.4 }}
-                  className="mt-10 inline-flex items-start gap-4 border border-ink-line p-6 max-w-[480px]"
-                  style={{ background: "color-mix(in oklab, var(--paper) 92%, var(--ink) 4%)" }}
-                >
-                  <span
-                    className="inline-block w-2 h-2 rounded-full bg-accent flex-none mt-2"
-                    style={{ boxShadow: "0 0 0 4px var(--accent-soft)" }}
-                  />
-                  <div>
-                    <div className="font-display text-[28px] leading-tight tracking-[-0.015em] text-ink">
-                      ~{hours} <span className="text-[0.55em] text-ink-mute">h/mois</span>
-                    </div>
-                    <div className="mt-1.5 text-[14.5px] text-ink-soft leading-[1.45]">
-                      économisées en moyenne sur {staff} collaborateur{staff > 1 ? "s" : ""}{" "}
-                      équivalent temps plein.
-                    </div>
-                  </div>
-                </motion.div>
+      {/* ─── Plan d'action ─── */}
+      <Section id="plan">
+        <Kicker index="02">Plan d&apos;action personnalisé</Kicker>
+        <SectionTitle html="Vos trois <em>chantiers</em> prioritaires." />
+        <p className="section-sub">
+          Priorisés selon vos réponses, vos outils actuels et la taille de votre cabinet. Un
+          accompagnement MIMIR peut traiter les trois en 90 jours.
+        </p>
+
+        <div className="res-recos">
+          {recommendations.map((r, i) => (
+            <motion.article
+              key={r.title}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 + i * 0.1, duration: 0.4 }}
+              className="reco-card"
+            >
+              <div className="reco-head">
+                <span className="reco-tag">— {r.tag}</span>
+                <span className="reco-num">{String(i + 1).padStart(2, "0")}</span>
               </div>
+              <h3 className="reco-title">{r.title}</h3>
+              <p className="reco-desc">{r.desc}</p>
+            </motion.article>
+          ))}
+        </div>
 
-              <div className="flex items-center justify-center">
-                <ScoreGauge score={score} />
-              </div>
+        <SectionFooter index="02" label="3 chantiers · 90 jours" total="03" />
+      </Section>
+
+      {/* ─── Booking ─── */}
+      <section className="final-section">
+        <div className="final-grid" style={{ gridTemplateColumns: "1fr" }}>
+          <div style={{ textAlign: "center", maxWidth: "720px", margin: "0 auto 56px" }}>
+            <div style={{ display: "inline-block" }}>
+              <Kicker pulse index="03">Prochaine étape · gratuit</Kicker>
             </div>
+            <h2
+              style={{ marginTop: "8px" }}
+              dangerouslySetInnerHTML={{
+                __html: "Bookez votre restitution<br />avec un <em>expert</em>.",
+              }}
+            />
+            <p className="lead" style={{ margin: "24px auto 0" }}>
+              45 minutes en visio. On vous explique chaque chantier en détail, on chiffre votre ROI
+              et on cadre les prochaines étapes. Sans engagement.
+            </p>
           </div>
-        </section>
 
-        {/* ─── Plan d'action ─── */}
-        <section className="py-[110px] border-t border-ink-line">
-          <div className="shell">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-20 max-md:gap-7 items-end mb-16">
-              <div>
-                <Eyebrow numero="002">Plan d&apos;action personnalisé</Eyebrow>
-                <DisplayHeading
-                  as="h2"
-                  className="mt-4"
-                  html={`Vos trois<br /><em>chantiers</em> prioritaires.`}
-                />
-              </div>
-              <p className="text-[17px] text-ink-soft m-0 max-w-[48ch]">
-                Priorisés selon vos réponses, vos outils actuels et la taille de votre cabinet. Un
-                accompagnement Mimir peut traiter les trois en 90 jours.
-              </p>
-            </div>
-
-            <HairlineGrid cols={3}>
-              {recommendations.map((r, i) => (
-                <RecoCard
-                  key={r.title}
-                  numero={String(i + 1).padStart(2, "0")}
-                  tag={r.tag}
-                  title={r.title}
-                  desc={r.desc}
-                  delay={0.2 + i * 0.1}
-                />
-              ))}
-            </HairlineGrid>
-          </div>
-        </section>
-
-        {/* ─── Booking ─── */}
-        <section
-          className="dark-section py-[120px]"
+          <CalEmbed />
+        </div>
+        <div
           style={{
-            background: "#16140F",
-            color: "#F4EFE6",
-            ["--color-ink" as string]: "#F4EFE6",
-            ["--color-ink-soft" as string]: "rgba(244, 239, 230, 0.62)",
-            ["--color-ink-mute" as string]: "rgba(244, 239, 230, 0.42)",
-            ["--color-ink-line" as string]: "rgba(244, 239, 230, 0.16)",
+            marginTop: "48px",
+            textAlign: "center",
+            fontFamily: "var(--font-jetbrains-mono), monospace",
+            fontSize: "11px",
+            letterSpacing: "0.16em",
+            textTransform: "uppercase",
+            color: "rgba(255,255,255,0.42)",
           }}
         >
-          <div className="shell">
-            <div className="text-center max-w-[640px] mx-auto mb-14">
-              <Eyebrow numero="003" pulse centered className="[&_.text-accent-deep]:text-accent">
-                Prochaine étape · gratuit
-              </Eyebrow>
-              <h2
-                className="font-display font-normal text-[clamp(40px,5vw,72px)] tracking-[-0.02em] leading-[1.02] mt-4"
-                style={{ color: "#F4EFE6", textWrap: "balance" as const }}
-              >
-                Bookez votre restitution<br />
-                avec un{" "}
-                <em className="italic" style={{ color: "var(--accent)" }}>
-                  expert
-                </em>
-                .
-              </h2>
-              <p
-                className="mt-6 text-[17px] leading-[1.55]"
-                style={{ color: "rgba(244,239,230,0.7)" }}
-              >
-                45 minutes en visio. On vous explique chaque chantier en détail, on chiffre votre
-                ROI et on cadre les prochaines étapes. Sans engagement.
-              </p>
-            </div>
-
-            <CalEmbed />
-          </div>
-        </section>
-
-        <div className="py-10 text-center font-mono text-[11px] tracking-[0.12em] uppercase text-ink-mute">
-          Un rapport détaillé a été envoyé à {data._email || "votre adresse"}
+          Rapport détaillé envoyé à{" "}
+          <Link
+            href="#"
+            style={{ color: "var(--cyan-neon)", textDecoration: "none" }}
+          >
+            {data._email || "votre adresse"}
+          </Link>
         </div>
-      </main>
+      </section>
 
       <Footer />
-    </div>
-  );
-}
-
-function RecoCard({
-  numero,
-  tag,
-  title,
-  desc,
-  delay,
-}: {
-  numero: string;
-  tag: string;
-  title: string;
-  desc: string;
-  delay: number;
-}) {
-  return (
-    <motion.article
-      initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay, duration: 0.4 }}
-      className="px-8 max-md:px-0 pt-9 pb-10 max-md:py-7 flex flex-col gap-5"
-    >
-      <div className="flex items-baseline justify-between">
-        <span className="font-mono text-[10.5px] tracking-[0.16em] uppercase text-accent-deep">
-          — {tag}
-        </span>
-        <span className="font-display text-[44px] leading-none tracking-[-0.02em] text-ink-line">
-          {numero}
-        </span>
-      </div>
-      <h3 className="font-display text-[28px] tracking-[-0.015em] leading-[1.1] text-ink m-0">
-        {title}
-      </h3>
-      <p className="text-[14.5px] text-ink-soft leading-[1.55] m-0 mt-1 pt-4 border-t border-dashed border-ink-line">
-        {desc}
-      </p>
-    </motion.article>
+    </>
   );
 }

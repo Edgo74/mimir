@@ -1,40 +1,49 @@
-import { Brand } from "./Brand";
+import { LogoMark } from "./LogoMark";
 
 export function Footer() {
   return (
-    <footer className="bg-paper border-t border-ink-line pt-14 pb-10">
-      <div className="shell">
-        <div className="flex items-start justify-between gap-6 flex-wrap">
-          <div className="flex flex-col gap-2 max-w-[32ch]">
-            <Brand size={26} sub={false} />
-            <p className="m-0 font-display italic text-[13.5px] text-ink-soft">
-              La sagesse opérationnelle de l&apos;IA pour les experts-comptables.
-            </p>
+    <footer className="mimir-foot">
+      <div className="mimir-foot-inner">
+        <div className="mimir-foot-brand">
+          <div className="top">
+            <LogoMark size={19} />
+            <span className="mark">MIMIR</span>
           </div>
-          <div className="flex gap-9 font-mono text-[11px] uppercase tracking-[0.12em]">
-            <a href="/#methode" className="text-ink-mute hover:text-ink transition-colors">
-              Méthode
-            </a>
-            <a href="/#tarifs" className="text-ink-mute hover:text-ink transition-colors">
-              Tarifs
-            </a>
-            <a href="/#voix" className="text-ink-mute hover:text-ink transition-colors">
-              Témoignages
-            </a>
-            <a href="/diagnostic" className="text-ink-mute hover:text-ink transition-colors">
-              Diagnostic
-            </a>
-            <a href="#" className="text-ink-mute hover:text-ink transition-colors">
-              Mentions
-            </a>
+          <p>
+            L&apos;IA des cabinets d&apos;expertise comptable. Audit, plan d&apos;action,
+            formation — packagés en 90 jours.
+          </p>
+        </div>
+        <div className="mimir-foot-cols">
+          <div className="mimir-foot-col">
+            <h5>Produit</h5>
+            <ul>
+              <li><a href="/#methode">Méthode</a></li>
+              <li><a href="/#tarifs">Tarifs</a></li>
+              <li><a href="/diagnostic">Diagnostic gratuit</a></li>
+              <li><a href="/#urgence">Marché</a></li>
+            </ul>
+          </div>
+          <div className="mimir-foot-col">
+            <h5>Marque</h5>
+            <ul>
+              <li><a href="/#genese">Genèse</a></li>
+              <li><a href="/#voix">Témoignages</a></li>
+            </ul>
+          </div>
+          <div className="mimir-foot-col">
+            <h5>Contact</h5>
+            <ul>
+              <li><a href="mailto:contact@mimir.ai">contact@mimir.ai</a></li>
+              <li><a href="#">LinkedIn</a></li>
+              <li><a href="#">Mentions légales</a></li>
+            </ul>
           </div>
         </div>
-        <div className="mt-9 pt-[18px] border-t border-ink-line flex justify-between items-center gap-4 flex-wrap font-mono text-[10.5px] uppercase tracking-[0.14em] text-ink-mute">
-          <span>© Mimir · MMXXVI · Tous droits réservés</span>
-          <span className="font-display italic text-[13.5px] tracking-[0.02em] text-ink-soft normal-case">
-            — sagesse, vision, stratégie
-          </span>
-        </div>
+      </div>
+      <div className="mimir-foot-bot">
+        <span>© MIMIR · MMXXVI · Tous droits réservés</span>
+        <span className="runes">ᛗᛁᛗᛁᚱ · 秘密</span>
       </div>
     </footer>
   );

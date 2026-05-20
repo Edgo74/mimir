@@ -3,7 +3,8 @@
 import { motion } from "framer-motion";
 import { FormEvent, useState } from "react";
 import { Answers } from "@/lib/scoring";
-import { Eyebrow } from "@/components/Eyebrow";
+import { Kicker } from "@/components/Kicker";
+import { Button } from "@/components/Button";
 
 const FORMSPREE_ENDPOINT =
   process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT ?? "https://formspree.io/f/REPLACE_ME";
@@ -47,20 +48,20 @@ export function EmailGate({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35 }}
-      className="w-full max-w-xl mx-auto"
+      style={{ width: "100%", maxWidth: "640px", margin: "0 auto" }}
     >
-      <Eyebrow pulse numero="008" className="mb-6">
-        Dernière étape
-      </Eyebrow>
-      <h2 className="font-display font-normal text-[clamp(40px,5vw,64px)] tracking-[-0.015em] leading-[1.02] text-ink display">
-        Votre rapport est <em className="italic text-accent-deep">prêt</em>.
-      </h2>
-      <p className="mt-5 text-[17px] text-ink-soft leading-[1.55] max-w-[52ch]">
+      <Kicker pulse index="08">Dernière étape</Kicker>
+      <h2
+        className="section-title"
+        style={{ marginTop: "14px", fontSize: "clamp(40px, 5vw, 64px)" }}
+        dangerouslySetInnerHTML={{ __html: "Votre rapport est <em>prêt</em>." }}
+      />
+      <p className="section-sub" style={{ marginBottom: "40px" }}>
         Indiquez votre email professionnel pour découvrir votre score IA cabinet et recevoir votre
         plan d&apos;action personnalisé.
       </p>
 
-      <form onSubmit={handle} className="mt-10 space-y-5">
+      <form onSubmit={handle} style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
         <Field
           id="cabinet"
           label="Nom du cabinet"
@@ -77,35 +78,48 @@ export function EmailGate({
           placeholder="prenom.nom@cabinet.fr"
         />
 
-        {error && <p className="text-sm text-red-700">{error}</p>}
+        {error && (
+          <p style={{ color: "#ff6b6b", fontFamily: "var(--font-inter)", fontSize: "14px" }}>
+            {error}
+          </p>
+        )}
 
-        <button
-          type="submit"
-          disabled={loading}
-          className="group inline-flex items-center gap-2 font-medium text-[16px] bg-ink text-paper px-[22px] py-[14px] transition-colors duration-150 hover:bg-accent-deep disabled:opacity-50 disabled:cursor-wait"
-        >
+        <Button variant="cyan" block type="submit" disabled={loading} arrow={!loading}>
           {loading ? (
-            <>
-              <svg className="animate-spin" width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <span style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}>
+              <svg
+                style={{ animation: "spin 1s linear infinite" }}
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+              >
                 <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" opacity="0.25" />
                 <path d="M22 12a10 10 0 0 1-10 10" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
               </svg>
               Analyse de votre cabinet…
-            </>
+            </span>
           ) : (
-            <>
-              Découvrir mon score
-              <span className="inline-block transition-transform duration-200 group-hover:translate-x-[3px]">
-                →
-              </span>
-            </>
+            "Découvrir mon score"
           )}
-        </button>
+        </Button>
 
-        <p className="font-mono text-[10.5px] tracking-[0.12em] uppercase text-ink-mute pt-2">
+        <p
+          style={{
+            fontFamily: "var(--font-jetbrains-mono), monospace",
+            fontSize: "10.5px",
+            letterSpacing: "0.14em",
+            textTransform: "uppercase",
+            color: "var(--text-on-dark-faint)",
+            paddingTop: "8px",
+            margin: 0,
+          }}
+        >
           Vos données restent chez nous · Aucun spam · Conforme RGPD
         </p>
       </form>
+
+      <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style>
     </motion.div>
   );
 }
@@ -129,7 +143,16 @@ function Field({
     <div>
       <label
         htmlFor={id}
-        className="block font-mono text-[10.5px] tracking-[0.14em] uppercase text-ink-mute mb-2"
+        style={{
+          display: "block",
+          fontFamily: "var(--font-jetbrains-mono), monospace",
+          fontSize: "10.5px",
+          letterSpacing: "0.18em",
+          textTransform: "uppercase",
+          color: "var(--cyan-neon)",
+          fontWeight: 600,
+          marginBottom: "10px",
+        }}
       >
         {label}
       </label>
@@ -140,7 +163,27 @@ function Field({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full h-12 px-4 bg-transparent border border-ink-line text-ink placeholder:text-ink-mute focus:outline-none focus:border-ink transition-colors"
+        style={{
+          width: "100%",
+          height: "48px",
+          padding: "0 16px",
+          background: "rgba(46, 91, 168, 0.08)",
+          border: "1px solid var(--rule-dark)",
+          borderRadius: "8px",
+          color: "#fff",
+          fontFamily: "var(--font-inter), sans-serif",
+          fontSize: "15px",
+          outline: "none",
+          transition: "border-color 0.15s, background 0.15s",
+        }}
+        onFocus={(e) => {
+          e.currentTarget.style.borderColor = "var(--cyan-neon)";
+          e.currentTarget.style.background = "rgba(46, 91, 168, 0.14)";
+        }}
+        onBlur={(e) => {
+          e.currentTarget.style.borderColor = "var(--rule-dark)";
+          e.currentTarget.style.background = "rgba(46, 91, 168, 0.08)";
+        }}
       />
     </div>
   );

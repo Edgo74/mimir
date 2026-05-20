@@ -1,9 +1,12 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { Brand } from "@/components/Brand";
+import { PortalBg } from "@/components/PortalBg";
+import { LogoMark } from "@/components/LogoMark";
+import { Button } from "@/components/Button";
 import { ProgressBar } from "@/components/diagnostic/ProgressBar";
 import { ChoiceButton } from "@/components/diagnostic/ChoiceButton";
 import { EmailGate } from "@/components/diagnostic/EmailGate";
@@ -49,148 +52,162 @@ export default function DiagnosticPage() {
   const multiCount = q && q.type === "multi" ? ((answers[q.id] as string[]) ?? []).length : 0;
 
   return (
-    <div className="min-h-screen flex flex-col">
-      {/* Top bar */}
-      <header
-        className="sticky top-0 z-40 border-b border-ink-line-soft backdrop-blur-[18px] backdrop-saturate-150"
-        style={{ background: "color-mix(in oklab, var(--paper) 78%, transparent)" }}
-      >
-        <div
-          className="flex items-center justify-between mx-auto"
-          style={{ maxWidth: "var(--shell)", padding: "22px 36px" }}
-        >
-          <Brand />
-          <a
-            href="/"
-            className="font-mono text-[11px] tracking-[0.14em] uppercase text-ink-mute hover:text-ink transition-colors"
-          >
-            Quitter
-          </a>
-        </div>
-        <div
-          className="mx-auto pb-5"
-          style={{ maxWidth: "var(--shell)", padding: "0 36px 18px" }}
-        >
-          <ProgressBar current={isEmailGate ? total : index} total={total} />
-        </div>
-      </header>
-
-      <main className="flex-1 flex items-start justify-center px-9 py-14 max-md:py-10">
-        <div className="w-full max-w-2xl">
-          <AnimatePresence mode="wait">
-            {isEmailGate ? (
-              <motion.div key="email" exit={{ opacity: 0, x: -40 }} transition={{ duration: 0.25 }}>
-                <EmailGate answers={answers} onSubmit={onEmailSubmit} />
-              </motion.div>
-            ) : (
-              <motion.div
-                key={q.id}
-                initial={{ opacity: 0, x: 40 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -40 }}
-                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+    <>
+      <PortalBg />
+      <div className="diag-shell">
+        <header className="diag-header">
+          <div className="diag-header-inner">
+            <Link
+              href="/"
+              aria-label="MIMIR · accueil"
+              style={{ display: "flex", alignItems: "center", gap: "10px" }}
+            >
+              <LogoMark size={22} />
+              <span
+                style={{
+                  fontFamily: "var(--font-syne), sans-serif",
+                  fontSize: "16px",
+                  fontWeight: 700,
+                  color: "#fff",
+                  letterSpacing: "-0.2px",
+                }}
               >
-                <div className="mb-10">
-                  <h2 className="font-display font-normal text-[clamp(34px,4.4vw,56px)] tracking-[-0.015em] leading-[1.05] text-ink display">
-                    {q.title}
-                  </h2>
-                  {q.subtitle && (
-                    <p className="mt-4 text-[17px] text-ink-soft leading-[1.5] max-w-[52ch]">
-                      {q.subtitle}
-                    </p>
-                  )}
-                  {q.type === "multi" && (
-                    <p className="mt-4 font-mono text-[11px] tracking-[0.14em] uppercase text-accent-deep">
-                      {multiCount === 0
-                        ? "Sélectionnez au moins une réponse"
-                        : `${String(multiCount).padStart(2, "0")} réponse${multiCount > 1 ? "s" : ""} sélectionnée${multiCount > 1 ? "s" : ""}`}
-                    </p>
-                  )}
-                </div>
+                MIMIR
+              </span>
+            </Link>
+            <Link href="/" className="diag-quit">
+              Quitter
+            </Link>
+          </div>
+          <div className="diag-header-bar">
+            <ProgressBar current={isEmailGate ? total : index} total={total} />
+          </div>
+        </header>
 
-                {q.type === "single" && (
-                  <div className="flex flex-col gap-2.5">
-                    {q.choices.map((c, i) => (
-                      <ChoiceButton
-                        key={c.id}
-                        index={i}
-                        selected={answers[q.id] === c.id}
-                        onClick={() => selectSingle(c.id)}
-                      >
-                        {c.label}
-                      </ChoiceButton>
-                    ))}
+        <main className="diag-main">
+          <div style={{ width: "100%", maxWidth: "720px" }}>
+            <AnimatePresence mode="wait">
+              {isEmailGate ? (
+                <motion.div
+                  key="email"
+                  exit={{ opacity: 0, x: -40 }}
+                  transition={{ duration: 0.25 }}
+                >
+                  <EmailGate answers={answers} onSubmit={onEmailSubmit} />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key={q.id}
+                  initial={{ opacity: 0, x: 40 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -40 }}
+                  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <div style={{ marginBottom: "40px" }}>
+                    <h2 className="diag-question">{q.title}</h2>
+                    {q.subtitle && <p className="diag-sub">{q.subtitle}</p>}
+                    {q.type === "multi" && (
+                      <p className="diag-multi-hint">
+                        {multiCount === 0
+                          ? "Sélectionnez au moins une réponse"
+                          : `${String(multiCount).padStart(2, "0")} réponse${multiCount > 1 ? "s" : ""} sélectionnée${multiCount > 1 ? "s" : ""}`}
+                      </p>
+                    )}
                   </div>
-                )}
 
-                {q.type === "multi" && (
-                  <div className="flex flex-col gap-2.5">
-                    {q.choices.map((c, i) => {
-                      const sel = ((answers[q.id] as string[]) ?? []).includes(c.id);
-                      return (
+                  {q.type === "single" && (
+                    <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                      {q.choices.map((c, i) => (
                         <ChoiceButton
                           key={c.id}
                           index={i}
-                          multi
-                          selected={sel}
-                          onClick={() => toggleMulti(c.id)}
+                          selected={answers[q.id] === c.id}
+                          onClick={() => selectSingle(c.id)}
                         >
                           {c.label}
                         </ChoiceButton>
-                      );
-                    })}
-                  </div>
-                )}
-
-                {q.type === "scale" && (
-                  <div className="grid grid-cols-5 gap-2.5">
-                    {q.choices.map((c, i) => (
-                      <ChoiceButton
-                        key={c.id}
-                        index={i}
-                        large
-                        emoji={c.emoji}
-                        selected={answers[q.id] === c.id}
-                        onClick={() => selectSingle(c.id)}
-                      >
-                        {c.label}
-                      </ChoiceButton>
-                    ))}
-                  </div>
-                )}
-
-                <div className="mt-12 flex items-center justify-between gap-4 pt-6 border-t border-ink-line">
-                  <button
-                    type="button"
-                    onClick={back}
-                    disabled={index === 0}
-                    className="group inline-flex items-baseline gap-2 font-mono text-[11px] tracking-[0.14em] uppercase text-ink-mute hover:text-ink disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-                  >
-                    <span className="inline-block transition-transform duration-200 group-hover:-translate-x-[3px]">
-                      ←
-                    </span>
-                    Précédent
-                  </button>
+                      ))}
+                    </div>
+                  )}
 
                   {q.type === "multi" && (
+                    <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                      {q.choices.map((c, i) => {
+                        const sel = ((answers[q.id] as string[]) ?? []).includes(c.id);
+                        return (
+                          <ChoiceButton
+                            key={c.id}
+                            index={i}
+                            multi
+                            selected={sel}
+                            onClick={() => toggleMulti(c.id)}
+                          >
+                            {c.label}
+                          </ChoiceButton>
+                        );
+                      })}
+                    </div>
+                  )}
+
+                  {q.type === "scale" && (
+                    <div
+                      style={{
+                        display: "grid",
+                        gridTemplateColumns: "repeat(5, 1fr)",
+                        gap: "12px",
+                      }}
+                    >
+                      {q.choices.map((c, i) => (
+                        <ChoiceButton
+                          key={c.id}
+                          index={i}
+                          large
+                          emoji={c.emoji}
+                          selected={answers[q.id] === c.id}
+                          onClick={() => selectSingle(c.id)}
+                        >
+                          {c.label}
+                        </ChoiceButton>
+                      ))}
+                    </div>
+                  )}
+
+                  <div
+                    style={{
+                      marginTop: "48px",
+                      paddingTop: "24px",
+                      borderTop: "1px solid var(--rule-dark)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      gap: "16px",
+                    }}
+                  >
                     <button
                       type="button"
-                      onClick={next}
-                      disabled={multiCount === 0}
-                      className="group inline-flex items-center gap-2 font-medium text-[16px] bg-ink text-paper px-[22px] py-[14px] transition-colors duration-150 hover:bg-accent-deep disabled:opacity-40 disabled:cursor-not-allowed"
+                      onClick={back}
+                      disabled={index === 0}
+                      className="diag-back"
                     >
-                      Continuer
-                      <span className="inline-block transition-transform duration-200 group-hover:translate-x-[3px]">
-                        →
-                      </span>
+                      ← Précédent
                     </button>
-                  )}
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-      </main>
-    </div>
+
+                    {q.type === "multi" && (
+                      <Button
+                        variant="cyan"
+                        onClick={next}
+                        disabled={multiCount === 0}
+                      >
+                        Continuer
+                      </Button>
+                    )}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        </main>
+      </div>
+    </>
   );
 }

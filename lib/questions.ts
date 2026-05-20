@@ -93,7 +93,7 @@ export const QUESTIONS: Question[] = [
     id: "budget",
     type: "single",
     title: "Quel budget formation par collaborateur et par an ?",
-    subtitle: "OPCO Atlas finance jusqu'à 6 500 € — bon à savoir.",
+    subtitle: "Pour calibrer vos options de financement OPCO.",
     choices: [
       { id: "low", label: "Moins de 1 000 €", score: 4 },
       { id: "mid", label: "1 000 € — 2 500 €", score: 10 },

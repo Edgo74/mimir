@@ -1,0 +1,1501 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1280, initial-scale=1">
+<title>MIMIR — Charte graphique</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+Runic&family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ===========================================================
+   MIMIR — CHARTE GRAPHIQUE
+   Document HTML paysage, scroll vertical
+   =========================================================== */
+:root{
+  /* — PALETTE MIMIR — */
+  --encre:#0C0F1A;
+  --saphir-nuit:#1A3A6B;
+  --saphir:#2E5BA8;
+  --ciel:#7BA3D8;
+  --cyan-neon:#00D4FF;
+  --perle:#F4F4F6;
+  --givre:#DCE6F5;
+  --blanc:#FFFFFF;
+
+  /* — TEXTE — */
+  --text-on-dark:#FFFFFF;
+  --text-on-dark-muted:rgba(255,255,255,.55);
+  --text-on-dark-faint:rgba(255,255,255,.30);
+  --text-on-light:#0C0F1A;
+  --text-on-light-muted:#5A6478;
+
+  /* — RULES — */
+  --rule-dark:rgba(255,255,255,.10);
+  --rule-light:#E3E8F1;
+
+  /* — TYPO — */
+  --font-display:'Syne', sans-serif;
+  --font-body:'Inter', -apple-system, sans-serif;
+  --font-mono:'JetBrains Mono', monospace;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font-body);
+  font-weight:400;
+  color:var(--text-on-dark);
+  background:var(--encre);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+/* ===========================================================
+   SECTION — base paysage 16:9 (min 100vh, 1280×720 idéal)
+   =========================================================== */
+.section{
+  width:100%;
+  min-height:100vh;
+  padding:64px 80px;
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  border-bottom:1px solid var(--rule-dark);
+}
+.section.light{
+  background:var(--perle);
+  color:var(--text-on-light);
+  border-bottom:1px solid var(--rule-light);
+}
+.section.dark{background:transparent}
+.section.saphir{background:var(--saphir-nuit)}
+
+/* — HEADER d'index — */
+.section-index{
+  font-family:var(--font-mono);
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--cyan-neon);
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-bottom:8px;
+}
+.section.light .section-index{color:var(--saphir)}
+.section-index .dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--cyan-neon);
+}
+.section.light .section-index .dot{background:var(--saphir)}
+.section-index .line{
+  height:1px;width:60px;
+  background:var(--cyan-neon);
+  opacity:.4;
+}
+.section.light .section-index .line{background:var(--saphir);opacity:.4}
+
+/* — TITRE de section — */
+.section-title{
+  font-family:var(--font-display);
+  font-size:56px;
+  font-weight:700;
+  letter-spacing:-1.4px;
+  line-height:1;
+  margin-bottom:14px;
+}
+.section-sub{
+  font-family:var(--font-body);
+  font-size:15px;
+  font-weight:400;
+  color:var(--text-on-dark-muted);
+  max-width:640px;
+  line-height:1.55;
+  margin-bottom:48px;
+}
+.section.light .section-sub{color:var(--text-on-light-muted)}
+
+/* — FOOTER de section (signature mono) — */
+.section-footer{
+  margin-top:auto;
+  padding-top:32px;
+  border-top:1px solid var(--rule-dark);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-family:var(--font-mono);
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--text-on-dark-faint);
+}
+.section.light .section-footer{border-top:1px solid var(--rule-light);color:var(--text-on-light-muted)}
+.section-footer .right{display:flex;gap:24px}
+
+/* ===========================================================
+   PORTAIL DE LA CONNAISSANCE — Animation de fond
+   Petits blocs de code et runes qui apparaissent aléatoirement
+   sur l'ensemble du site
+   =========================================================== */
+.portal-bg{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:1;
+  overflow:hidden;
+}
+.portal-particle{
+  position:absolute;
+  font-family:var(--font-mono);
+  font-size:13px;
+  font-weight:500;
+  color:rgba(123,163,216,0.32);
+  letter-spacing:.10em;
+  white-space:nowrap;
+  opacity:0;
+  animation:portalFade ease-in-out forwards;
+  text-shadow:0 0 10px rgba(0,212,255,0.18), 0 0 22px rgba(46,91,168,0.10);
+}
+.portal-particle.rune{
+  font-family:'Noto Sans Runic','Segoe UI Symbol',sans-serif;
+  font-size:20px;
+  color:rgba(0,212,255,0.32);
+  letter-spacing:.22em;
+  text-shadow:0 0 12px rgba(0,212,255,0.28), 0 0 28px rgba(0,212,255,0.10);
+}
+.portal-particle.accent{
+  color:rgba(0,212,255,0.42);
+  text-shadow:0 0 14px rgba(0,212,255,0.35), 0 0 32px rgba(0,212,255,0.15);
+}
+.portal-particle.dim{
+  color:rgba(123,163,216,0.18);
+  font-size:11px;
+}
+@keyframes portalFade{
+  0%   { opacity:0; transform:scale(0.92); filter:blur(2px); }
+  30%  { opacity:1; transform:scale(1); filter:blur(0); }
+  70%  { opacity:1; transform:scale(1); filter:blur(0); }
+  100% { opacity:0; transform:scale(1.08); filter:blur(2px); }
+}
+/* Hiérarchie d'empilement :
+   - body (fond noir) : z-index auto
+   - .portal-bg (particules) : z-index 1
+   - contenu des sections (texte, logos, cards) : z-index 2
+   - sections claires (recouvrent les particules dans ces zones) : z-index 2 + fond opaque
+   - .topbar : z-index 100
+*/
+.section{ position:relative; z-index:2; }
+.topbar{ z-index:100; }
+/* Accessibilité : respecte le réglage utilisateur */
+@media (prefers-reduced-motion: reduce){
+  .portal-particle{ animation-duration:0.01ms !important; opacity:.25 !important; }
+}
+
+/* ===========================================================
+   SECTION 00 — MARQUE / ÉTYMOLOGIE
+   =========================================================== */
+.brand-grid{
+  display:grid;
+  grid-template-columns:1.1fr 1fr;
+  gap:64px;
+  flex:1;
+  align-items:center;
+}
+.brand-story{display:flex;flex-direction:column;gap:32px;max-width:560px}
+.brand-block{display:flex;flex-direction:column;gap:10px}
+.brand-block .label{
+  font-family:var(--font-mono);
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--cyan-neon);
+  display:flex;align-items:center;gap:10px;
+}
+.brand-block .label::before{
+  content:"";width:18px;height:1px;background:var(--cyan-neon);display:inline-block;
+}
+.brand-block .word{
+  font-family:var(--font-display);
+  font-size:38px;
+  font-weight:700;
+  color:#fff;
+  letter-spacing:-.8px;
+  line-height:1;
+}
+.brand-block .word .chinese{
+  font-family:'Noto Sans SC', var(--font-display);
+  color:var(--cyan-neon);
+  margin-left:14px;
+  font-size:42px;
+}
+.brand-block .word .pinyin{
+  font-family:var(--font-mono);
+  font-size:14px;
+  font-weight:500;
+  color:var(--text-on-dark-muted);
+  margin-left:14px;
+  letter-spacing:.04em;
+}
+.brand-block .definition{
+  font-family:var(--font-body);
+  font-size:15px;
+  font-weight:400;
+  line-height:1.55;
+  color:rgba(255,255,255,.78);
+}
+.brand-block .definition em{
+  font-style:italic;
+  color:var(--ciel);
+}
+.brand-pillars{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+  margin-top:16px;
+}
+.pillar{
+  border:1px solid var(--rule-dark);
+  border-radius:10px;
+  padding:18px 20px;
+  background:rgba(46,91,168,.08);
+}
+.pillar .num{
+  font-family:var(--font-mono);
+  font-size:10px;
+  font-weight:600;
+  color:var(--cyan-neon);
+  letter-spacing:.18em;
+}
+.pillar .name{
+  font-family:var(--font-display);
+  font-size:18px;
+  font-weight:700;
+  color:#fff;
+  letter-spacing:-.3px;
+  margin-top:4px;
+}
+.pillar .desc{
+  font-family:var(--font-body);
+  font-size:12.5px;
+  font-weight:400;
+  color:var(--text-on-dark-muted);
+  line-height:1.5;
+  margin-top:6px;
+}
+
+/* Visuel puits de la connaissance */
+.well-visual{
+  position:relative;
+  width:100%;
+  aspect-ratio:1/1;
+  max-width:520px;
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.well-visual svg{width:100%;height:100%}
+
+/* ===========================================================
+   SECTION 05 — ÉLÉMENTS VISUELS (runes + code)
+   =========================================================== */
+.elements-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:32px;
+  flex:1;
+  align-items:stretch;
+}
+.element-card{
+  background:rgba(46,91,168,.06);
+  border:1px solid var(--rule-dark);
+  border-radius:14px;
+  padding:36px 40px;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+  position:relative;
+  overflow:hidden;
+}
+.element-card .e-label{
+  font-family:var(--font-mono);
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--cyan-neon);
+}
+.element-card h3{
+  font-family:var(--font-display);
+  font-size:32px;
+  font-weight:700;
+  color:#fff;
+  letter-spacing:-.8px;
+  line-height:1;
+}
+.element-card .e-desc{
+  font-family:var(--font-body);
+  font-size:14px;
+  font-weight:400;
+  color:rgba(255,255,255,.72);
+  line-height:1.55;
+  max-width:440px;
+}
+
+.runes-display{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:28px 0;
+  gap:32px;
+  font-family:'Noto Sans Runic', 'Segoe UI Symbol', sans-serif;
+  font-size:72px;
+  color:var(--ciel);
+  line-height:1;
+  flex-wrap:wrap;
+}
+.runes-display .rune{
+  position:relative;
+  transition:.3s;
+}
+.runes-display .rune:hover{color:var(--cyan-neon);transform:translateY(-4px)}
+.runes-display .rune.accent{color:var(--cyan-neon)}
+
+.runes-legend{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+  margin-top:8px;
+}
+.rune-item{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+  padding:14px 8px;
+  border-radius:8px;
+  background:rgba(0,212,255,.05);
+  border:1px solid rgba(0,212,255,.15);
+}
+.rune-item .glyph{
+  font-family:'Noto Sans Runic', 'Segoe UI Symbol', sans-serif;
+  font-size:32px;
+  color:var(--cyan-neon);
+  line-height:1;
+}
+.rune-item .name{
+  font-family:var(--font-mono);
+  font-size:9.5px;
+  font-weight:600;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--text-on-dark-muted);
+}
+
+.code-display{
+  background:var(--encre);
+  border:1px solid var(--rule-dark);
+  border-radius:10px;
+  padding:22px 24px;
+  font-family:var(--font-mono);
+  font-size:12px;
+  line-height:1.85;
+  color:rgba(123,163,216,.50);
+  position:relative;
+  overflow:hidden;
+}
+.code-display .comment{color:var(--text-on-dark-muted);font-style:italic}
+.code-display .key{color:var(--cyan-neon)}
+.code-display .val{color:#fff}
+.code-display .punct{color:var(--ciel)}
+.code-display .string{color:var(--ciel)}
+.code-display .meta{color:var(--text-on-dark-faint);font-size:10px;display:block;margin-top:8px;letter-spacing:.06em}
+
+.binary-strip{
+  font-family:var(--font-mono);
+  font-size:11px;
+  line-height:1.7;
+  color:rgba(123,163,216,.35);
+  letter-spacing:.06em;
+  word-break:break-all;
+  background:rgba(0,0,0,.25);
+  padding:14px 18px;
+  border-radius:8px;
+  border-left:2px solid var(--cyan-neon);
+}
+
+
+.cover{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:40px;
+  align-items:center;
+  flex:1;
+}
+.cover-mark{
+  position:relative;
+  height:100%;
+  min-height:520px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.cover-mark .logo-svg{position:relative;z-index:2;width:100%;max-width:520px;height:auto;display:block;aspect-ratio:140/115}
+
+.cover-text{padding:24px 0}
+.cover-text h1{
+  font-family:var(--font-display);
+  font-size:128px;
+  font-weight:700;
+  letter-spacing:-4px;
+  line-height:.92;
+  color:#fff;
+  margin-bottom:24px;
+}
+.cover-text .tagline{
+  font-family:var(--font-body);
+  font-size:13px;
+  font-weight:500;
+  letter-spacing:.32em;
+  text-transform:uppercase;
+  color:var(--text-on-dark-muted);
+  margin-bottom:18px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+.cover-text .tagline .sep{
+  width:4px;height:4px;border-radius:50%;
+  background:var(--cyan-neon);
+  display:inline-block;
+}
+.cover-text .desc{
+  font-family:var(--font-body);
+  font-size:17px;
+  font-weight:400;
+  line-height:1.55;
+  color:rgba(255,255,255,.78);
+  max-width:520px;
+  margin-bottom:32px;
+}
+.cover-text .pills{display:flex;gap:10px;flex-wrap:wrap}
+.cover-text .pill{
+  font-family:var(--font-body);
+  font-size:12px;
+  font-weight:500;
+  color:var(--cyan-neon);
+  border:1px solid rgba(0,212,255,.35);
+  padding:6px 14px;
+  border-radius:30px;
+}
+
+/* ===========================================================
+   SECTION 02 — VARIANTES DU LOGO
+   =========================================================== */
+.variants-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+  margin-bottom:32px;
+}
+.variant{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+.variant-frame{
+  border-radius:12px;
+  padding:36px;
+  height:280px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  overflow:hidden;
+  border:1px solid var(--rule-light);
+}
+.variant-frame.bg-blanc{background:var(--blanc)}
+.variant-frame.bg-saphir{background:var(--saphir-nuit);border-color:transparent}
+.variant-frame.bg-givre{background:var(--givre);border-color:transparent}
+.variant-frame .logo-svg{width:75%;max-width:240px}
+.variant-frame .icon-only{width:120px;height:120px}
+.variant-meta{display:flex;flex-direction:column;gap:4px}
+.variant-meta .name{
+  font-family:var(--font-body);
+  font-size:14px;
+  font-weight:600;
+  color:var(--text-on-light);
+}
+.variant-meta .use{
+  font-family:var(--font-mono);
+  font-size:10.5px;
+  font-weight:500;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--text-on-light-muted);
+}
+
+/* ===========================================================
+   SECTION 03 — PALETTE
+   =========================================================== */
+.palette-grid{
+  display:grid;
+  grid-template-columns:repeat(8,1fr);
+  gap:12px;
+  margin-top:8px;
+}
+.swatch{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+.swatch-chip{
+  height:200px;
+  border-radius:10px;
+  padding:18px;
+  display:flex;
+  align-items:flex-start;
+  border:1px solid transparent;
+  position:relative;
+}
+.swatch-chip .hex{
+  font-family:var(--font-mono);
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.04em;
+  padding:5px 9px;
+  border-radius:6px;
+  background:rgba(0,0,0,.30);
+  color:#fff;
+}
+.swatch-chip.is-light .hex{
+  background:rgba(255,255,255,.85);
+  color:var(--encre);
+}
+.swatch-chip.is-light{border-color:var(--rule-light)}
+.swatch-meta{padding:0 4px}
+.swatch-meta .name{
+  font-family:var(--font-body);
+  font-size:14px;
+  font-weight:600;
+  color:var(--text-on-light);
+}
+.swatch-meta .var{
+  font-family:var(--font-mono);
+  font-size:10px;
+  font-weight:500;
+  letter-spacing:.08em;
+  color:var(--text-on-light-muted);
+  margin-top:3px;
+}
+
+/* — Distribution stats — */
+.palette-stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+  margin-top:48px;
+  padding-top:32px;
+  border-top:1px dashed var(--rule-light);
+}
+.stat{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+.stat .label{
+  font-family:var(--font-mono);
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--text-on-light-muted);
+}
+.stat .value{
+  font-family:var(--font-display);
+  font-size:36px;
+  font-weight:700;
+  color:var(--saphir-nuit);
+  letter-spacing:-1px;
+  line-height:1;
+}
+.stat .value .pct{font-family:var(--font-mono);font-size:18px;font-weight:600;color:var(--cyan-neon);margin-left:4px}
+.stat .desc{
+  font-family:var(--font-body);
+  font-size:13px;
+  font-weight:400;
+  color:var(--text-on-light-muted);
+  line-height:1.45;
+  margin-top:4px;
+}
+
+/* ===========================================================
+   SECTION 04 — TYPOGRAPHIE
+   =========================================================== */
+.type-stack{display:flex;flex-direction:column;gap:32px}
+.type-row{
+  display:grid;
+  grid-template-columns:1fr 320px;
+  gap:48px;
+  align-items:end;
+  padding-bottom:32px;
+  border-bottom:1px dashed var(--rule-dark);
+}
+.type-row:last-child{border-bottom:0;padding-bottom:0}
+.type-sample-display{
+  font-family:var(--font-display);
+  font-size:108px;
+  font-weight:700;
+  letter-spacing:-3px;
+  line-height:.9;
+  color:var(--cyan-neon);
+}
+.type-sample-body{
+  font-family:var(--font-body);
+  font-size:64px;
+  font-weight:400;
+  letter-spacing:-1.5px;
+  line-height:1.05;
+  color:rgba(255,255,255,.88);
+}
+.type-sample-body em{font-style:normal;color:var(--text-on-dark-muted)}
+.type-sample-mono{
+  font-family:var(--font-mono);
+  font-size:42px;
+  font-weight:500;
+  letter-spacing:-.5px;
+  line-height:1.1;
+  color:#fff;
+}
+.type-sample-mono .accent{color:var(--cyan-neon)}
+.type-info{display:flex;flex-direction:column;gap:8px}
+.type-info .name{
+  font-family:var(--font-display);
+  font-size:22px;
+  font-weight:700;
+  color:#fff;
+  letter-spacing:-.4px;
+}
+.type-info .role{
+  font-family:var(--font-mono);
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--cyan-neon);
+}
+.type-info .desc{
+  font-family:var(--font-body);
+  font-size:13px;
+  font-weight:400;
+  color:var(--text-on-dark-muted);
+  line-height:1.5;
+}
+.type-info .weights{
+  font-family:var(--font-mono);
+  font-size:10.5px;
+  font-weight:500;
+  color:rgba(255,255,255,.65);
+  letter-spacing:.04em;
+  margin-top:4px;
+  padding-top:10px;
+  border-top:1px solid var(--rule-dark);
+}
+
+/* ===========================================================
+   SECTION 05 — APPLICATION
+   =========================================================== */
+.app-frame{
+  flex:1;
+  background:var(--encre);
+  border-radius:14px;
+  padding:56px 64px;
+  position:relative;
+  overflow:hidden;
+  border:1px solid var(--rule-dark);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  min-height:480px;
+}
+.app-frame .binary-bg{
+  position:absolute;
+  inset:0;
+  font-family:var(--font-mono);
+  font-size:10px;
+  color:rgba(123,163,216,.10);
+  line-height:1.8;
+  letter-spacing:.06em;
+  overflow:hidden;
+  padding:24px;
+}
+.app-frame .deco-circle{
+  position:absolute;
+  right:-100px;bottom:-100px;
+  width:380px;height:380px;
+  border:2px solid rgba(46,91,168,.25);
+  border-radius:50%;
+}
+.app-frame .deco-circle::after{
+  content:"";
+  position:absolute;
+  inset:40px;
+  border:1px solid rgba(46,91,168,.15);
+  border-radius:50%;
+}
+.app-frame .deco-bar{
+  position:absolute;
+  left:0;top:24px;bottom:24px;
+  width:4px;
+  background:var(--cyan-neon);
+}
+.app-content{
+  position:relative;z-index:2;
+  padding-left:24px;
+  max-width:780px;
+}
+.app-kicker{
+  font-family:var(--font-mono);
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--cyan-neon);
+  margin-bottom:18px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.app-kicker .sep{
+  width:4px;height:4px;border-radius:50%;
+  background:var(--cyan-neon);
+}
+.app-title{
+  font-family:var(--font-display);
+  font-size:88px;
+  font-weight:700;
+  letter-spacing:-2.8px;
+  line-height:.95;
+  color:#fff;
+  margin-bottom:18px;
+}
+.app-lead{
+  font-family:var(--font-body);
+  font-size:22px;
+  font-weight:400;
+  color:rgba(255,255,255,.78);
+  margin-bottom:24px;
+  max-width:640px;
+  line-height:1.4;
+}
+.app-pills{display:flex;gap:10px;flex-wrap:wrap}
+.app-pills .pill{
+  font-family:var(--font-body);
+  font-size:13px;
+  font-weight:500;
+  color:var(--cyan-neon);
+  border:1px solid rgba(0,212,255,.35);
+  padding:7px 16px;
+  border-radius:30px;
+}
+
+/* ===========================================================
+   TOP BAR — signature MIMIR
+   =========================================================== */
+.topbar{
+  position:fixed;
+  top:0;left:0;right:0;
+  height:42px;
+  background:rgba(12,15,26,.92);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--rule-dark);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 32px;
+  font-family:var(--font-mono);
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--text-on-dark-faint);
+  z-index:100;
+}
+.topbar .left{display:flex;align-items:center;gap:14px}
+.topbar .left .mark{
+  font-family:var(--font-display);
+  font-size:14px;
+  font-weight:700;
+  color:#fff;
+  letter-spacing:-.2px;
+}
+.topbar .left .sep{
+  width:1px;height:14px;background:var(--rule-dark);
+}
+.topbar .nav{display:flex;gap:24px}
+.topbar .nav a{
+  color:var(--text-on-dark-muted);
+  text-decoration:none;
+  transition:.15s;
+}
+.topbar .nav a:hover{color:var(--cyan-neon)}
+
+/* Compensation pour la topbar fixe */
+.section:first-of-type{padding-top:106px}
+
+/* ===========================================================
+   PRINT (au cas où)
+   =========================================================== */
+@media print{
+  .topbar{display:none}
+  .section{page-break-after:always;min-height:auto}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== PORTAIL DE LA CONNAISSANCE — fond animé ===== -->
+<div class="portal-bg" id="portal-bg" aria-hidden="true"></div>
+
+<!-- ===== TOP BAR ===== -->
+<div class="topbar">
+  <div class="left">
+    <span class="mark">MIMIR</span>
+    <span class="sep"></span>
+    <span>Charte graphique · v1.0</span>
+  </div>
+  <nav class="nav">
+    <a href="#s01">01 Logo</a>
+    <a href="#s02">02 Genèse</a>
+    <a href="#s03">03 Variantes</a>
+    <a href="#s04">04 Palette</a>
+    <a href="#s05">05 Typographie</a>
+    <a href="#s06">06 Éléments</a>
+    <a href="#s07">07 Application</a>
+  </nav>
+</div>
+
+
+<!-- ===== SECTION 01 — COUVERTURE / LOGO PRINCIPAL ===== -->
+<section class="section dark" id="s01">
+  <div class="section-index">
+    <span class="dot"></span>
+    <span>01 — Logo asymétrique · Usage principal</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="cover">
+    <!-- Marque visuelle -->
+    <div class="cover-mark">
+      <svg class="logo-svg" viewBox="-10 -10 140 115" xmlns="http://www.w3.org/2000/svg" fill="none" preserveAspectRatio="xMidYMid meet">
+        <path d="M 10 80 A 50 50 0 1 1 110 30" stroke="#7BA3D8" stroke-width="1.8"/>
+        <path d="M 25 80 A 32 32 0 1 0 92 50" stroke="#2E5BA8" stroke-width="2.2"/>
+        <circle cx="10" cy="80" r="5" fill="#2E5BA8"/>
+        <circle cx="10" cy="80" r="2.2" fill="#00D4FF"/>
+        <circle cx="110" cy="30" r="3.5" fill="#00D4FF"/>
+        <line x1="92" y1="40" x2="108" y2="22" stroke="#00D4FF" stroke-width="2.2"/>
+      </svg>
+    </div>
+
+    <!-- Texte -->
+    <div class="cover-text">
+      <div class="tagline">
+        <span>Conseil</span>
+        <span class="sep"></span>
+        <span>Transformation IA</span>
+      </div>
+      <h1>MIMIR</h1>
+      <div class="pills">
+        <span class="pill">audit</span>
+        <span class="pill">implémentation</span>
+        <span class="pill">formation</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-footer">
+    <span>mimir · charte graphique v1.0</span>
+    <div class="right">
+      <span>Section 01 / 07</span>
+      <span>Logo asymétrique</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 02 — GENÈSE / ÉTYMOLOGIE ===== -->
+<section class="section dark" id="s02">
+  <div class="section-index">
+    <span class="dot"></span>
+    <span>02 — Genèse & symbolique</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="brand-grid">
+    <!-- Récit de marque -->
+    <div class="brand-story">
+      <div>
+        <h2 class="section-title" style="font-size:48px;margin-bottom:14px">Le puits<br>de la connaissance</h2>
+        <p class="section-sub" style="margin-bottom:0">MIMIR puise dans deux héritages : la mythologie nordique et la culture chinoise. Une marque qui relie le savoir ancestral à la technologie contemporaine.</p>
+      </div>
+
+      <div class="brand-block">
+        <span class="label">Origine 01 · Nordique</span>
+        <div class="word">Mímir</div>
+        <p class="definition">Dans la mythologie nordique, <em>Mímir</em> est le dieu de la connaissance, gardien du puits sous les racines d'Yggdrasil dont l'eau confère sagesse et clairvoyance. Odin lui-même sacrifia un œil pour boire à sa source.</p>
+      </div>
+
+      <div class="brand-block">
+        <span class="label">Origine 02 · Chinois</span>
+        <div class="word"><span class="chinese">秘密</span><span class="pinyin">mìmì</span></div>
+        <p class="definition">En chinois, <em>秘密</em> signifie <em>secret</em>. Le mot évoque le savoir caché, la connaissance qui se transmet à ceux qui savent regarder. Une lecture phonétique double qui ouvre la marque à l'international.</p>
+      </div>
+
+      <div class="brand-block">
+        <span class="label">Symbole</span>
+        <p class="definition" style="font-size:14px">Le logo représente un <em>puits de la connaissance stylisé</em> vu en plongée. Les arcs concentriques figurent les anneaux d'eau, le trait cyan néon est le rai de lumière qui pénètre la profondeur, le point central est la source.</p>
+      </div>
+
+      <div class="brand-pillars">
+        <div class="pillar">
+          <span class="num">01</span>
+          <div class="name">Savoir ancestral</div>
+          <p class="desc">L'héritage mythologique ancre la marque dans une tradition de transmission.</p>
+        </div>
+        <div class="pillar">
+          <span class="num">02</span>
+          <div class="name">Technologie</div>
+          <p class="desc">Le code, la donnée et l'IA comme nouveau langage de la connaissance.</p>
+        </div>
+        <div class="pillar">
+          <span class="num">03</span>
+          <div class="name">Premium</div>
+          <p class="desc">Une posture sobre et exigeante, à la hauteur des cabinets accompagnés.</p>
+        </div>
+        <div class="pillar">
+          <span class="num">04</span>
+          <div class="name">Dynamique</div>
+          <p class="desc">Le mouvement asymétrique signale la transformation en cours.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Visuel du puits -->
+    <div class="well-visual">
+      <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" fill="none">
+        <!-- Halo extérieur -->
+        <circle cx="250" cy="250" r="240" stroke="rgba(123,163,216,0.12)" stroke-width="1" stroke-dasharray="2 6"/>
+
+        <!-- Anneaux concentriques du puits (vue plongée) -->
+        <circle cx="250" cy="250" r="210" stroke="#7BA3D8" stroke-width="1" opacity="0.35"/>
+        <circle cx="250" cy="250" r="170" stroke="#7BA3D8" stroke-width="1.2" opacity="0.55"/>
+        <circle cx="250" cy="250" r="130" stroke="#2E5BA8" stroke-width="1.5" opacity="0.75"/>
+        <circle cx="250" cy="250" r="90" stroke="#2E5BA8" stroke-width="1.8"/>
+        <circle cx="250" cy="250" r="55" stroke="#00D4FF" stroke-width="2"/>
+        <circle cx="250" cy="250" r="25" stroke="#00D4FF" stroke-width="2"/>
+        <!-- Source au centre -->
+        <circle cx="250" cy="250" r="6" fill="#00D4FF"/>
+        <circle cx="250" cy="250" r="14" fill="none" stroke="#00D4FF" stroke-width="0.8" opacity="0.5">
+          <animate attributeName="r" values="14;20;14" dur="3s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.5;0.1;0.5" dur="3s" repeatCount="indefinite"/>
+        </circle>
+
+        <!-- Rai de lumière diagonal -->
+        <line x1="80" y1="80" x2="240" y2="240" stroke="#00D4FF" stroke-width="1.5" opacity="0.7"/>
+        <circle cx="80" cy="80" r="4" fill="#00D4FF"/>
+
+        <!-- Runes en orbite -->
+        <text x="250" y="55" font-family="Noto Sans Runic, Segoe UI Symbol, sans-serif" font-size="18" fill="#7BA3D8" text-anchor="middle" opacity="0.7">ᛗ</text>
+        <text x="445" y="255" font-family="Noto Sans Runic, Segoe UI Symbol, sans-serif" font-size="18" fill="#7BA3D8" text-anchor="middle" opacity="0.7">ᛁ</text>
+        <text x="250" y="465" font-family="Noto Sans Runic, Segoe UI Symbol, sans-serif" font-size="18" fill="#7BA3D8" text-anchor="middle" opacity="0.7">ᛗ</text>
+        <text x="55" y="255" font-family="Noto Sans Runic, Segoe UI Symbol, sans-serif" font-size="18" fill="#7BA3D8" text-anchor="middle" opacity="0.7">ᛁ</text>
+        <text x="395" y="105" font-family="Noto Sans Runic, Segoe UI Symbol, sans-serif" font-size="14" fill="#00D4FF" text-anchor="middle" opacity="0.85">ᚱ</text>
+
+        <!-- Idéogrammes chinois -->
+        <text x="110" y="395" font-family="Syne, sans-serif" font-size="22" font-weight="700" fill="rgba(0,212,255,0.45)" letter-spacing="2">秘密</text>
+
+        <!-- Tirets latéraux signature -->
+        <line x1="10" y1="250" x2="28" y2="250" stroke="#7BA3D8" stroke-width="1.5"/>
+        <line x1="472" y1="250" x2="490" y2="250" stroke="#7BA3D8" stroke-width="1.5"/>
+        <line x1="250" y1="10" x2="250" y2="28" stroke="#7BA3D8" stroke-width="1.5"/>
+        <line x1="250" y1="472" x2="250" y2="490" stroke="#7BA3D8" stroke-width="1.5"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="section-footer">
+    <span>mimir · charte graphique v1.0</span>
+    <div class="right">
+      <span>Section 02 / 07</span>
+      <span>Mímir · 秘密</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 03 — VARIANTES ===== -->
+<section class="section light" id="s02">
+  <div class="section-index">
+    <span class="dot"></span>
+    <span>03 — Déclinaisons</span>
+    <span class="line"></span>
+  </div>
+  <h2 class="section-title" style="color:var(--encre)">Variantes du logo</h2>
+  <p class="section-sub">Trois déclinaisons selon le support. Le fond blanc reste la version par défaut sur tous les supports imprimés ; le fond saphir s'utilise sur les slides commerciales et les couvertures de rapport ; l'icône seule est réservée à l'app, au favicon et aux usages où l'espace est contraint.</p>
+
+  <div class="variants-grid">
+    <!-- Variante 1 : Fond blanc -->
+    <div class="variant">
+      <div class="variant-frame bg-blanc">
+        <svg class="logo-svg" viewBox="0 0 320 140" xmlns="http://www.w3.org/2000/svg" fill="none">
+          <!-- Mark à gauche -->
+          <g transform="translate(20,20)">
+            <path d="M 10 80 A 50 50 0 1 1 110 30" stroke="#7BA3D8" stroke-width="1.5"/>
+            <path d="M 25 80 A 32 32 0 1 0 92 50" stroke="#2E5BA8" stroke-width="2"/>
+            <circle cx="10" cy="80" r="4" fill="#2E5BA8"/>
+            <circle cx="10" cy="80" r="1.8" fill="#00D4FF"/>
+            <circle cx="110" cy="30" r="3" fill="#00D4FF"/>
+            <line x1="92" y1="40" x2="108" y2="22" stroke="#00D4FF" stroke-width="2"/>
+          </g>
+          <!-- Wordmark -->
+          <text x="140" y="68" font-family="Syne, sans-serif" font-size="44" font-weight="700" fill="#0C0F1A" letter-spacing="-1">MIMIR</text>
+          <text x="142" y="95" font-family="Inter, sans-serif" font-size="9" font-weight="500" letter-spacing="3" fill="#5A6478">TRANSFORMATION IA</text>
+        </svg>
+      </div>
+      <div class="variant-meta">
+        <span class="name">Fond blanc</span>
+        <span class="use">Print · Digital · Documents</span>
+      </div>
+    </div>
+
+    <!-- Variante 2 : Fond saphir -->
+    <div class="variant">
+      <div class="variant-frame bg-saphir">
+        <svg class="logo-svg" viewBox="0 0 320 140" xmlns="http://www.w3.org/2000/svg" fill="none">
+          <g transform="translate(20,20)">
+            <path d="M 10 80 A 50 50 0 1 1 110 30" stroke="#7BA3D8" stroke-width="1.5"/>
+            <path d="M 25 80 A 32 32 0 1 0 92 50" stroke="#00D4FF" stroke-width="2"/>
+            <circle cx="10" cy="80" r="4" fill="#7BA3D8"/>
+            <circle cx="10" cy="80" r="1.8" fill="#00D4FF"/>
+            <circle cx="110" cy="30" r="3" fill="#00D4FF"/>
+            <line x1="92" y1="40" x2="108" y2="22" stroke="#00D4FF" stroke-width="2"/>
+          </g>
+          <text x="140" y="68" font-family="Syne, sans-serif" font-size="44" font-weight="700" fill="#FFFFFF" letter-spacing="-1">MIMIR</text>
+          <text x="142" y="95" font-family="Inter, sans-serif" font-size="9" font-weight="500" letter-spacing="3" fill="rgba(255,255,255,0.55)">TRANSFORMATION IA</text>
+        </svg>
+      </div>
+      <div class="variant-meta">
+        <span class="name">Fond saphir</span>
+        <span class="use">Slides · Cartes · Couvertures</span>
+      </div>
+    </div>
+
+    <!-- Variante 3 : Icône seule -->
+    <div class="variant">
+      <div class="variant-frame bg-givre">
+        <svg class="icon-only" viewBox="0 0 140 110" xmlns="http://www.w3.org/2000/svg" fill="none">
+          <g transform="translate(10,10)">
+            <path d="M 10 80 A 50 50 0 1 1 110 30" stroke="#7BA3D8" stroke-width="1.8"/>
+            <path d="M 25 80 A 32 32 0 1 0 92 50" stroke="#2E5BA8" stroke-width="2.2"/>
+            <circle cx="10" cy="80" r="5" fill="#2E5BA8"/>
+            <circle cx="10" cy="80" r="2.2" fill="#00D4FF"/>
+            <circle cx="110" cy="30" r="3.5" fill="#00D4FF"/>
+            <line x1="92" y1="40" x2="108" y2="22" stroke="#00D4FF" stroke-width="2.2"/>
+          </g>
+        </svg>
+      </div>
+      <div class="variant-meta">
+        <span class="name">Icône seule</span>
+        <span class="use">App · Favicon · Avatar</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-footer">
+    <span>mimir · charte graphique v1.0</span>
+    <div class="right">
+      <span>Section 03 / 07</span>
+      <span>3 variantes</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 04 — PALETTE ===== -->
+<section class="section light" id="s03">
+  <div class="section-index">
+    <span class="dot"></span>
+    <span>04 — Palette chromatique</span>
+    <span class="line"></span>
+  </div>
+  <h2 class="section-title" style="color:var(--encre)">Palette</h2>
+  <p class="section-sub">Huit teintes structurées en trois familles : les fonds sombres (Encre, Saphir nuit, Saphir) qui ancrent la marque, les accents intermédiaires (Ciel, Cyan néon) pour les éléments interactifs et les données, les surfaces claires (Perle, Givre, Blanc) pour les supports lisibles.</p>
+
+  <div class="palette-grid">
+    <div class="swatch">
+      <div class="swatch-chip" style="background:#0C0F1A"><span class="hex">#0C0F1A</span></div>
+      <div class="swatch-meta">
+        <div class="name">Encre</div>
+        <div class="var">--encre</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-chip" style="background:#1A3A6B"><span class="hex">#1A3A6B</span></div>
+      <div class="swatch-meta">
+        <div class="name">Saphir nuit</div>
+        <div class="var">--saphir-nuit</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-chip" style="background:#2E5BA8"><span class="hex">#2E5BA8</span></div>
+      <div class="swatch-meta">
+        <div class="name">Saphir</div>
+        <div class="var">--saphir</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-chip" style="background:#7BA3D8"><span class="hex">#7BA3D8</span></div>
+      <div class="swatch-meta">
+        <div class="name">Ciel</div>
+        <div class="var">--ciel</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-chip" style="background:#00D4FF"><span class="hex">#00D4FF</span></div>
+      <div class="swatch-meta">
+        <div class="name">Cyan néon</div>
+        <div class="var">--cyan-neon</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-chip is-light" style="background:#F4F4F6"><span class="hex">#F4F4F6</span></div>
+      <div class="swatch-meta">
+        <div class="name">Perle</div>
+        <div class="var">--perle</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-chip is-light" style="background:#DCE6F5"><span class="hex">#DCE6F5</span></div>
+      <div class="swatch-meta">
+        <div class="name">Givre</div>
+        <div class="var">--givre</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-chip is-light" style="background:#FFFFFF"><span class="hex">#FFFFFF</span></div>
+      <div class="swatch-meta">
+        <div class="name">Blanc</div>
+        <div class="var">--blanc</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="palette-stats">
+    <div class="stat">
+      <span class="label">Fond principal</span>
+      <span class="value">Encre<span class="pct">60%</span></span>
+      <span class="desc">Ancre la marque sur les supports digitaux et les couvertures.</span>
+    </div>
+    <div class="stat">
+      <span class="label">Couleur de marque</span>
+      <span class="value">Saphir<span class="pct">25%</span></span>
+      <span class="desc">Famille bleue (saphir nuit, saphir, ciel) pour les surfaces et structures.</span>
+    </div>
+    <div class="stat">
+      <span class="label">Accent interactif</span>
+      <span class="value">Cyan néon<span class="pct">10%</span></span>
+      <span class="desc">Données chiffrées, liens, états actifs, ponctuations visuelles.</span>
+    </div>
+  </div>
+
+  <div class="section-footer">
+    <span>mimir · charte graphique v1.0</span>
+    <div class="right">
+      <span>Section 04 / 07</span>
+      <span>8 teintes</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 05 — TYPOGRAPHIE ===== -->
+<section class="section dark" id="s04">
+  <div class="section-index">
+    <span class="dot"></span>
+    <span>05 — Système typographique</span>
+    <span class="line"></span>
+  </div>
+  <h2 class="section-title">Typographie</h2>
+  <p class="section-sub">Trois polices, trois rôles distincts. Aucune famille n'empiète sur le territoire d'une autre : Syne pour la voix de la marque, Inter pour la lecture, JetBrains Mono pour la donnée.</p>
+
+  <div class="type-stack">
+    <!-- Syne Bold -->
+    <div class="type-row">
+      <div class="type-sample-display">Syne Bold</div>
+      <div class="type-info">
+        <span class="role">01 · Display</span>
+        <span class="name">Syne</span>
+        <span class="desc">Titres, wordmark, headings principaux. Apporte le caractère contemporain et la signature visuelle.</span>
+        <span class="weights">Regular 400 · Bold 700 · Extra 800</span>
+      </div>
+    </div>
+    <!-- Inter Regular -->
+    <div class="type-row">
+      <div class="type-sample-body">Inter Regular <em>— corps & interface</em></div>
+      <div class="type-info">
+        <span class="role">02 · Body</span>
+        <span class="name">Inter</span>
+        <span class="desc">Texte courant, paragraphes, libellés UI, formulaires. Lisible à toutes les tailles.</span>
+        <span class="weights">Light 300 · Regular 400 · Medium 500 · Semi 600</span>
+      </div>
+    </div>
+    <!-- JetBrains Mono -->
+    <div class="type-row">
+      <div class="type-sample-mono">JetBrains Mono <span class="accent">·</span> données <span class="accent">·</span> KPIs <span class="accent">·</span> 01</div>
+      <div class="type-info">
+        <span class="role">03 · Mono</span>
+        <span class="name">JetBrains Mono</span>
+        <span class="desc">Métriques, codes, chiffres clés, étiquettes techniques. Donne une dimension data à la marque.</span>
+        <span class="weights">Regular 400 · Medium 500 · Bold 700</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-footer">
+    <span>mimir · charte graphique v1.0</span>
+    <div class="right">
+      <span>Section 05 / 07</span>
+      <span>Syne · Inter · JetBrains Mono</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 06 — ÉLÉMENTS VISUELS (RUNES + CODE) ===== -->
+<section class="section dark" id="s05">
+  <div class="section-index">
+    <span class="dot"></span>
+    <span>06 — Éléments visuels secondaires</span>
+    <span class="line"></span>
+  </div>
+  <h2 class="section-title">Runes & code</h2>
+  <p class="section-sub">Deux familles graphiques activent les deux versants de la marque : les runes futhark portent le savoir ancestral, le code et les chaînes binaires portent la dimension technologique. Utilisées en filigrane, en ponctuation ou en motif d'arrière-plan.</p>
+
+  <div class="elements-grid">
+
+    <!-- RUNES -->
+    <div class="element-card">
+      <div>
+        <span class="e-label">A · Runes futhark</span>
+        <h3 style="margin-top:8px">Savoir ancestral</h3>
+      </div>
+      <p class="e-desc">Lettres de l'alphabet runique scandinave. Évoquent l'origine mythologique de Mímir et le savoir transmis depuis Yggdrasil. À utiliser avec parcimonie : filigrane, signature, ponctuation visuelle.</p>
+
+      <div class="runes-display">
+        <span class="rune">ᛗ</span>
+        <span class="rune accent">ᛁ</span>
+        <span class="rune">ᛗ</span>
+        <span class="rune">ᛁ</span>
+        <span class="rune accent">ᚱ</span>
+      </div>
+
+      <div class="runes-legend">
+        <div class="rune-item">
+          <span class="glyph">ᛗ</span>
+          <span class="name">Mannaz · M</span>
+        </div>
+        <div class="rune-item">
+          <span class="glyph">ᛁ</span>
+          <span class="name">Isaz · I</span>
+        </div>
+        <div class="rune-item">
+          <span class="glyph">ᚱ</span>
+          <span class="name">Raido · R</span>
+        </div>
+        <div class="rune-item">
+          <span class="glyph">ᚦ</span>
+          <span class="name">Thurisaz · TH</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CODE / BINAIRE -->
+    <div class="element-card">
+      <div>
+        <span class="e-label">B · Code & binaire</span>
+        <h3 style="margin-top:8px">Langage technologique</h3>
+      </div>
+      <p class="e-desc">Chaînes binaires, idéogrammes 秘密, snippets de code et étiquettes data. Posent la marque dans son territoire d'expertise : IA, automatisation, transformation digitale des cabinets.</p>
+
+      <div class="code-display">
+        <span class="comment">// mimir.config</span><br>
+        <span class="key">brand</span><span class="punct">:</span> <span class="string">"MIMIR"</span><span class="punct">,</span><br>
+        <span class="key">origin</span><span class="punct">:</span> <span class="punct">[</span><span class="string">"Mímir"</span><span class="punct">,</span> <span class="string">"秘密"</span><span class="punct">]</span><span class="punct">,</span><br>
+        <span class="key">domain</span><span class="punct">:</span> <span class="string">"experts-comptables.ai"</span><span class="punct">,</span><br>
+        <span class="key">services</span><span class="punct">:</span> <span class="punct">[</span><span class="string">"audit"</span><span class="punct">,</span> <span class="string">"impl"</span><span class="punct">,</span> <span class="string">"former"</span><span class="punct">]</span><br>
+        <span class="meta">// facturation électronique · sept. 2026</span>
+      </div>
+
+      <div class="binary-strip">
+        01001101 01001001 01001101 01001001 01010010 · 01000001 01010101 01000100 01001001 01010100 · 01001001 01001101 01010000 01001100 01000101 · 01000110 01001111 01010010 01001101 01000101 01010010
+      </div>
+    </div>
+  </div>
+
+  <div class="section-footer">
+    <span>mimir · charte graphique v1.0</span>
+    <div class="right">
+      <span>Section 06 / 07</span>
+      <span>Runes · Binaire · Code</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 07 — APPLICATION SLIDE ===== -->
+<section class="section dark" id="s06">
+  <div class="section-index">
+    <span class="dot"></span>
+    <span>07 — Application slide</span>
+    <span class="line"></span>
+  </div>
+  <h2 class="section-title">Mise en situation</h2>
+  <p class="section-sub">Exemple de slide commerciale combinant les éléments de l'identité : fond Encre, motif binaire en filigrane, barre d'accent Cyan néon, hiérarchie typographique Syne / Inter, signature mono en pied de page.</p>
+
+  <!-- Application -->
+  <div class="app-frame">
+    <!-- Motif binaire en fond -->
+    <div class="binary-bg">
+01001000 01000001 01000011 01001011 01000001 01010100 01001000 01001111 01001110<br>
+00100000 11001111 11000110 11000001 11001011 11001110 01000010 11001110 11000111<br>
+01000010 01001001 01001110 01000001 01010100 01010101 01010010 01000101 00100000<br>
+01000101 01001100 01000101 01000011 01010100 01010010 01001111 01001110 01001001<br>
+01010001 01010101 01000101 00100000 01010011 01000101 01010000 01010100 01001111<br>
+01001101 01000010 01010010 01000101 00100000 00110010 00110000 00110010 00110110
+    </div>
+    <!-- Cercles décoratifs en bas à droite -->
+    <div class="deco-circle"></div>
+    <!-- Barre d'accent à gauche -->
+    <div class="deco-bar"></div>
+
+    <div class="app-content">
+      <div class="app-kicker">
+        <span>Hackathon</span>
+        <span class="sep"></span>
+        <span>2026</span>
+        <span class="sep"></span>
+        <span>Cabinets experts-comptables</span>
+      </div>
+      <h1 class="app-title">MIMIR</h1>
+      <p class="app-lead">Transformez votre cabinet grâce à l'IA.</p>
+      <div class="app-pills">
+        <span class="pill">audit</span>
+        <span class="pill">implémentation</span>
+        <span class="pill">formation</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-footer">
+    <span>mimir v1 · logo asymétrique · saphir #1A3A6B · cyan néon #00D4FF · syne + inter + jetbrains mono</span>
+    <div class="right">
+      <span>Section 07 / 07</span>
+      <span>Fin</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PORTAIL DE LA CONNAISSANCE — moteur d'animation ===== -->
+<script>
+(function(){
+  const root = document.getElementById('portal-bg');
+  if(!root) return;
+
+  // Vocabulaire du portail — formats équivalents en longueur (5 à 8 caractères)
+  const RUNES = [
+    'ᛗᛁᛗᛁᚱ','ᚦᚢᚱᛁᛊᚨᛉ','ᚨᛚᚷᛁᛉ','ᚱᛇᛞᛟ','ᛟᚦᚨᛚᚨ',
+    'ᛒᛖᚱᚲᚨᚾᚨ','ᛞᚨᚷᚨᛉ','ᚹᚢᚾᛃᛟ','ᛇᚹᚨᛉ','ᚺᚨᚷᚨᛚᚨᛉ',
+    'ᚾᚨᚢᚦᛁᛉ','ᛁᛊᚨ','ᛃᛖᚱᚨ','ᛈᛖᚱᚦᛟ','ᛊᛟᚹᛁᛚᛟ',
+    'ᛏᛁᚹᚨᛉ','ᛖᚺᚹᚨᛉ','ᚠᛖᚺᚢ','ᚢᚱᚢᛉ','ᚷᛖᛒᛟ',
+    'ᛞᚨᚷᚨᛉᚹ','ᚲᛖᚾᚨᛉ','ᛚᚨᚷᚢᛉ','ᛁᚾᚷᚹᚨᛉ','ᛊᚢᛚ'
+  ];
+
+  // Un mot binaire = 8 bits aléatoires (même longueur visuelle qu'une rune)
+  function makeBinaryWord(){
+    let s = '';
+    for(let i=0; i<8; i++) s += Math.random() < 0.5 ? '0' : '1';
+    return s;
+  }
+
+  const PALETTE = [
+    {weight:55, type:'rune'},
+    {weight:35, type:'binary'},
+    {weight:10, type:'accent'}
+  ];
+
+  function weightedPick(arr){
+    const total = arr.reduce((s,o)=>s+o.weight,0);
+    let r = Math.random()*total;
+    for(const o of arr){ r -= o.weight; if(r<=0) return o.type; }
+    return arr[0].type;
+  }
+  function rand(min,max){ return Math.random()*(max-min)+min; }
+  function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+  let isVisible = !document.hidden;
+  document.addEventListener('visibilitychange', ()=>{ isVisible = !document.hidden; });
+
+  function spawnParticle(){
+    if(!isVisible) return;
+
+    const type = weightedPick(PALETTE);
+    const el = document.createElement('span');
+    el.className = 'portal-particle';
+
+    let text = '';
+    if(type === 'rune'){
+      el.classList.add('rune');
+      text = pick(RUNES);
+    } else if(type === 'accent'){
+      el.classList.add('accent');
+      // mix : parfois une rune accent, parfois un mot binaire accent
+      text = Math.random() < 0.5 ? pick(RUNES) : makeBinaryWord();
+      if(text.length === 8 && /^[01]+$/.test(text)){
+        // Si binaire, on garde le format mono via absence de classe rune
+      } else {
+        el.classList.add('rune');
+      }
+    } else { // binary
+      text = makeBinaryWord();
+    }
+    el.textContent = text;
+
+    el.style.left = rand(3, 90) + 'vw';
+    el.style.top  = rand(8, 90) + 'vh';
+
+    // Cycle très bref : 0.7 à 1.3 secondes — vrai flash ésotérique
+    const duration = rand(0.7, 1.3);
+    el.style.animationDuration = duration + 's';
+
+    root.appendChild(el);
+    setTimeout(()=> el.remove(), duration * 1000 + 60);
+  }
+
+  // Cadence soutenue : une particule toutes les 120-280ms
+  // Plafond à 18 simultanées
+  function tick(){
+    if(isVisible && root.children.length < 18){
+      spawnParticle();
+    }
+    setTimeout(tick, rand(120, 280));
+  }
+
+  // Pré-amorçage : 8 particules d'emblée
+  for(let i=0; i<8; i++){
+    setTimeout(spawnParticle, i*80);
+  }
+  tick();
+})();
+</script>
+
+</body>
+</html>

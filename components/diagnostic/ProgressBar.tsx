@@ -6,16 +6,24 @@ export function ProgressBar({ current, total }: { current: number; total: number
   const pct = Math.round((current / total) * 100);
   return (
     <div className="w-full">
-      <div className="flex items-center justify-between font-mono text-[11px] tracking-[0.12em] uppercase text-ink-mute mb-2.5">
-        <span>
+      <div className="flex items-center justify-between mb-2.5"
+           style={{
+             fontFamily: "var(--font-jetbrains-mono), monospace",
+             fontSize: "11px",
+             letterSpacing: "0.18em",
+             textTransform: "uppercase",
+             color: "var(--text-on-dark-mute)",
+             fontWeight: 600,
+           }}>
+        <span style={{ color: "var(--text-on-dark-muted)" }}>
           Question {String(Math.min(current + 1, total)).padStart(2, "0")}
-          <span className="text-ink-mute"> / {String(total).padStart(2, "0")}</span>
+          <span style={{ color: "var(--text-on-dark-faint)" }}> / {String(total).padStart(2, "0")}</span>
         </span>
-        <span>{pct} %</span>
+        <span style={{ color: "var(--cyan-neon)" }}>{pct} %</span>
       </div>
-      <div className="h-px w-full bg-ink-line relative">
+      <div style={{ height: "1px", width: "100%", background: "var(--rule-dark)", position: "relative" }}>
         <motion.div
-          className="absolute inset-y-0 left-0 bg-accent-deep"
+          style={{ position: "absolute", inset: "0 auto 0 0", background: "var(--cyan-neon)" }}
           initial={{ width: 0 }}
           animate={{ width: `${pct}%` }}
           transition={{ type: "spring", stiffness: 80, damping: 20 }}
