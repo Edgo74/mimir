@@ -122,9 +122,9 @@ export const QUESTIONS: Question[] = [
     subtitle: "Pour calibrer vos options de financement OPCO.",
     choices: [
       { id: "none", label: "Pas de budget alloué", score: 0 },
-      { id: "low", label: "Moins de 1 000 €", score: 4 },
-      { id: "mid", label: "1 000 € — 2 500 €", score: 10 },
-      { id: "high", label: "Plus de 2 500 €", score: 14 },
+      { id: "low", label: "Entre 2 500 € et 5 000 €", score: 6 },
+      { id: "mid", label: "Entre 5 000 € et 10 000 €", score: 12 },
+      { id: "high", label: "Plus de 10 000 €", score: 16 },
     ],
   },
   {
