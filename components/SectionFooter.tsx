@@ -1,20 +1,12 @@
-export function SectionFooter({
-  index,
-  label,
-  total = "07",
-}: {
+/**
+ * SectionFooter — disabled (returns null).
+ * Kept as a no-op so existing callsites compile without changes.
+ */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function SectionFooter(_props: {
   index: string;
   label: string;
   total?: string;
 }) {
-  return (
-    <div className="section-footer">
-      <div className="right" style={{ marginLeft: "auto" }}>
-        <span>
-          Section {index} / {total}
-        </span>
-        <span>{label}</span>
-      </div>
-    </div>
-  );
+  return null;
 }

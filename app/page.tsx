@@ -221,7 +221,7 @@ export default function Home() {
           html="Issu de <em>7 entretiens</em> avec des dirigeants de cabinets."
         />
         <p className="section-sub">
-          Les bruits du terrain — pourquoi MIMIR a été construit comme un accompagnement humain, pas
+          Les bruits du terrain pourquoi MIMIR a été construit comme un accompagnement humain, pas
           comme un énième outil à déployer.
         </p>
 
@@ -252,7 +252,7 @@ export default function Home() {
         <SectionTitle html="Trois forfaits. Un seul <em>interlocuteur</em>." />
         <p className="section-sub">
           Trois niveaux d&apos;accompagnement, du diagnostic seul au partenariat sur six mois.
-          Tous nos forfaits sont éligibles au financement OPCO — nous gérons le dossier pour vous.
+          Tous nos forfaits sont éligibles au financement OPCO nous gérons le dossier pour vous.
         </p>
 
         <div className="price-grid">
@@ -267,7 +267,7 @@ export default function Home() {
               "Rapport livré sous 15 jours",
             ]}
             ctaHref="/diagnostic"
-            ctaLabel="En savoir plus"
+            ctaLabel="Faire mon diagnostic gratuit"
           />
           <PriceCard
             tag="Forfait 02"
@@ -297,7 +297,7 @@ export default function Home() {
               "Onboarding nouveaux entrants",
             ]}
             ctaHref="/diagnostic"
-            ctaLabel="En savoir plus"
+            ctaLabel="Faire mon diagnostic gratuit"
           />
         </div>
 
@@ -317,14 +317,14 @@ export default function Home() {
             />
             <p className="lead">
               Un questionnaire court, un rapport personnalisé, un plan d&apos;action concret. Sans
-              engagement, sans carte bancaire — juste votre email professionnel.
+              engagement, sans carte bancaire juste votre email professionnel.
             </p>
             <div className="cta-row">
               <Button href="/diagnostic" variant="cyan">
                 Démarrer mon diagnostic
               </Button>
               <Button href="#tarifs" variant="ghost" arrow={false}>
-                Voir les tarifs
+                Voir les offres
               </Button>
             </div>
           </div>

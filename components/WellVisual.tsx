@@ -1,6 +1,13 @@
+"use client";
+
+import { useEffect, useRef } from "react";
+
 /**
  * Well of Knowledge — pure SVG, anneaux concentriques en rotation.
- * Variant "hero" = version riche du hero. Variant "genese" = version genese (un peu plus minimaliste).
+ * Variant "hero" = version riche du hero. Variant "genese" = version genese.
+ *
+ * Interactive: parallax tilt suivant le curseur quand on survole le visuel.
+ * Effet hologramme — GPU-only (transform 3D), respecte prefers-reduced-motion.
  */
 export function WellVisual({
   variant = "hero",
@@ -9,8 +16,82 @@ export function WellVisual({
   variant?: "hero" | "genese";
   maxWidth?: number;
 }) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    // Respect user's reduced motion preference
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) return;
+
+    let rafId = 0;
+    let targetRx = 0;
+    let targetRy = 0;
+    let targetTx = 0;
+    let targetTy = 0;
+    let currentRx = 0;
+    let currentRy = 0;
+    let currentTx = 0;
+    let currentTy = 0;
+
+    const onMove = (e: PointerEvent) => {
+      const rect = el.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = (e.clientX - cx) / (rect.width / 2); // -1..1
+      const dy = (e.clientY - cy) / (rect.height / 2); // -1..1
+      // Max tilt 12deg, slight translation for parallax
+      targetRy = dx * 12;
+      targetRx = -dy * 12;
+      targetTx = dx * 6;
+      targetTy = dy * 6;
+    };
+
+    const onLeave = () => {
+      targetRx = 0;
+      targetRy = 0;
+      targetTx = 0;
+      targetTy = 0;
+    };
+
+    const tick = () => {
+      // Smooth lerp toward target
+      currentRx += (targetRx - currentRx) * 0.12;
+      currentRy += (targetRy - currentRy) * 0.12;
+      currentTx += (targetTx - currentTx) * 0.12;
+      currentTy += (targetTy - currentTy) * 0.12;
+      el.style.transform = `perspective(900px) rotateX(${currentRx.toFixed(2)}deg) rotateY(${currentRy.toFixed(2)}deg) translate3d(${currentTx.toFixed(2)}px, ${currentTy.toFixed(2)}px, 0)`;
+      rafId = requestAnimationFrame(tick);
+    };
+
+    // Listen on the section parent so the tilt reacts to a wider hover zone
+    const parent = el.parentElement ?? el;
+    parent.addEventListener("pointermove", onMove);
+    parent.addEventListener("pointerleave", onLeave);
+    rafId = requestAnimationFrame(tick);
+
+    return () => {
+      parent.removeEventListener("pointermove", onMove);
+      parent.removeEventListener("pointerleave", onLeave);
+      cancelAnimationFrame(rafId);
+      el.style.transform = "";
+    };
+  }, []);
+
   return (
-    <div className="hero-visual" aria-hidden="true" style={{ maxWidth }}>
+    <div
+      ref={ref}
+      className="hero-visual"
+      aria-hidden="true"
+      style={{
+        maxWidth,
+        transformStyle: "preserve-3d",
+        transition: "transform 0.1s linear",
+        willChange: "transform",
+      }}
+    >
       <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" fill="none">
         {/* Halo extérieur */}
         <circle
