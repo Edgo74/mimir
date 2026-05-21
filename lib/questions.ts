@@ -72,6 +72,19 @@ export const QUESTIONS: Question[] = [
     ],
   },
   {
+    id: "use-cases",
+    type: "single",
+    title:
+      "Avez-vous identifié des cas d'usage concrets où l'IA pourrait résoudre un problème ou créer de la valeur ?",
+    subtitle: "Au-delà de l'intuition — des cas précis pour votre cabinet.",
+    choices: [
+      { id: "no", label: "Non, pas encore", score: 2 },
+      { id: "some", label: "Quelques idées, mais rien de formalisé", score: 6 },
+      { id: "list", label: "Oui, une liste claire de cas prioritaires", score: 12 },
+      { id: "tested", label: "Oui, déjà testés sur le terrain", score: 16 },
+    ],
+  },
+  {
     id: "facture-elec",
     type: "single",
     title: "Où en êtes-vous sur la facture électronique 2026 ?",
@@ -113,6 +126,19 @@ export const QUESTIONS: Question[] = [
       { id: "informal", label: "Règles orales, pas formalisées", score: 5 },
       { id: "written", label: "Procédures écrites mais manuelles", score: 10 },
       { id: "tooled", label: "Outils de workflow / gouvernance en place", score: 16 },
+    ],
+  },
+  {
+    id: "capacity",
+    type: "single",
+    title:
+      "Disposez-vous de compétences internes ou de partenaires externes pour accompagner une démarche IA ?",
+    subtitle: "Pour exécuter, pas seulement décider.",
+    choices: [
+      { id: "none", label: "Ni interne, ni partenaire", score: 2 },
+      { id: "internal-partial", label: "Une personne en interne, mais pas dédiée", score: 6 },
+      { id: "external", label: "Un partenaire externe identifié", score: 10 },
+      { id: "both", label: "Compétences internes + partenaires externes", score: 16 },
     ],
   },
   {
