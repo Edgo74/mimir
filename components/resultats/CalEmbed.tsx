@@ -1,65 +1,15 @@
 "use client";
 
-import { useEffect } from "react";
-
 const CAL_LINK = process.env.NEXT_PUBLIC_CAL_LINK ?? "";
 const isConfigured = !!CAL_LINK && !CAL_LINK.includes("REPLACE_ME");
 
+/**
+ * Cal.com embed via plain <iframe> on https://cal.com (not app.cal.com).
+ * The official SDK has known issues with personal free accounts where its
+ * iframe loads from app.cal.com and 404s — pointing the iframe directly at
+ * cal.com/{slug}/embed sidesteps the entire SDK problem.
+ */
 export function CalEmbed() {
-  useEffect(() => {
-    if (!isConfigured) return;
-
-    (function (C: any, A: string, L: string) {
-      const p = function (a: any, ar: any) {
-        a.q.push(ar);
-      };
-      const d = C.document;
-      C.Cal =
-        C.Cal ||
-        function (...args: any[]) {
-          const cal = C.Cal;
-          const ar = args;
-          if (!cal.loaded) {
-            cal.ns = {};
-            cal.q = cal.q || [];
-            d.head.appendChild(d.createElement("script")).src = A;
-            cal.loaded = true;
-          }
-          if (ar[0] === L) {
-            const api: any = function (...iargs: any[]) {
-              p(api, iargs);
-            };
-            const namespace = ar[1];
-            api.q = api.q || [];
-            if (typeof namespace === "string") {
-              cal.ns[namespace] = cal.ns[namespace] || api;
-              p(cal.ns[namespace], ar);
-              p(cal, ["initNamespace", namespace]);
-            } else {
-              p(cal, ar);
-            }
-            return;
-          }
-          p(cal, ar);
-        };
-    })(window as any, "https://app.cal.com/embed/embed.js", "init");
-
-    (window as any).Cal("init", "restitution", { origin: "https://cal.com" });
-    (window as any).Cal.ns.restitution("inline", {
-      elementOrSelector: "#cal-inline",
-      calLink: CAL_LINK,
-      layout: "month_view",
-    });
-    (window as any).Cal.ns.restitution("ui", {
-      theme: "dark",
-      cssVarsPerTheme: {
-        dark: { "cal-brand": "#00D4FF" },
-      },
-      hideEventTypeDetails: false,
-      layout: "month_view",
-    });
-  }, []);
-
   if (!isConfigured) {
     return (
       <div className="res-cal-fallback">
@@ -120,17 +70,46 @@ export function CalEmbed() {
     );
   }
 
+  const src = `https://cal.com/${CAL_LINK}/embed?layout=month_view&theme=dark`;
+  const directLink = `https://cal.com/${CAL_LINK}`;
+
   return (
-    <div
-      id="cal-inline"
-      style={{
-        width: "100%",
-        minHeight: "640px",
-        overflow: "scroll",
-        background: "var(--encre)",
-        border: "1px solid var(--rule-dark)",
-        borderRadius: "14px",
-      }}
-    />
+    <div style={{ width: "100%" }}>
+      <iframe
+        src={src}
+        title="Cal.com — réservez votre restitution"
+        loading="lazy"
+        style={{
+          width: "100%",
+          minHeight: "720px",
+          border: "1px solid var(--rule-dark)",
+          borderRadius: "14px",
+          background: "var(--encre)",
+          colorScheme: "dark",
+        }}
+        allow="payment; camera; microphone"
+      />
+      <p
+        style={{
+          marginTop: "16px",
+          textAlign: "center",
+          fontFamily: "var(--font-jetbrains-mono), monospace",
+          fontSize: "11px",
+          letterSpacing: "0.14em",
+          textTransform: "uppercase",
+          color: "var(--text-on-dark-faint)",
+        }}
+      >
+        Souci d&apos;affichage ?{" "}
+        <a
+          href={directLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: "var(--cyan-neon)", textDecoration: "none" }}
+        >
+          Ouvrir le calendrier dans un nouvel onglet →
+        </a>
+      </p>
+    </div>
   );
 }

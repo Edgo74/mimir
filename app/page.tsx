@@ -43,14 +43,14 @@ export default function Home() {
 
             <p className="hero-lead">
               MIMIR accompagne les cabinets d&apos;expertise comptable dans leur transformation IA.{" "}
-              <strong>Audit, plan d&apos;action, formation</strong> — packagés en 90 jours,
+              <strong>Audit, plan d&apos;action, formation </strong> packagés en 90 jours,
               finançables OPCO jusqu&apos;à 100 %.
             </p>
 
             <div className="hero-pills">
-              <Pill>audit</Pill>
-              <Pill>implémentation</Pill>
-              <Pill>formation</Pill>
+              <Pill>Audit</Pill>
+              <Pill>Implémentation</Pill>
+              <Pill>Formation</Pill>
             </div>
 
             <div className="hero-cta">
@@ -81,7 +81,7 @@ export default function Home() {
           html="Le marché ne demande qu'à être <em>servi</em>."
         />
         <p className="section-sub">
-          Trois chiffres officiels. Une fenêtre de décision qui se referme — pour vous comme pour
+          Trois chiffres officiels. Une fenêtre de décision qui se referme pour vous comme pour
           vos clients qui devront tous facturer électroniquement à partir de septembre 2026.
         </p>
 
@@ -101,7 +101,7 @@ export default function Home() {
           <KpiCell
             ix="— 03 · Échéance"
             valueHtml={`09/26<span class="unit">— FE</span>`}
-            label="facture électronique obligatoire pour toutes les PME — zéro cabinet pleinement prêt."
+            label="facture électronique obligatoire pour toutes les PME zéro cabinet pleinement prêt."
             source="DGFiP"
           />
         </div>
@@ -148,11 +148,11 @@ export default function Home() {
             numLabel="Phase 03 · Formation"
             titleHtml={`Formation <em>& transmission</em>`}
             when="Mois 2 → 3"
-            description="Acculturation de l'équipe, bibliothèque de prompts métier prêts à l'emploi, coach IA dédié pendant 3 mois. À la fin, vous opérez seuls — c'est la promesse."
+            description="Acculturation de l'équipe, bibliothèque de prompts métier prêts à l'emploi, coach IA dédié pendant 3 mois. À la fin, vous opérez seuls c'est la promesse."
             livrables={[
               "Formation Qualiopi équipe",
               "Bibliothèque prompts métier",
-              "Coach IA dédié — 90 jours",
+              "Coach IA dédié 90 jours",
             ]}
           />
         </div>
@@ -175,9 +175,11 @@ export default function Home() {
               <span className="label">Origine 01 · Nordique</span>
               <div className="word">Mímir</div>
               <p className="definition">
-                Dans la mythologie nordique, <em>Mímir</em> est le dieu de la connaissance, gardien
-                du puits sous les racines d&apos;Yggdrasil dont l&apos;eau confère sagesse et
-                clairvoyance. <em>Odin lui-même sacrifia un œil pour boire à sa source.</em>
+                Dans la mythologie nordique,{" "}
+                <em>Mímir</em>{" "}
+                est le dieu de la connaissance, gardien du puits sous les racines
+                d&apos;Yggdrasil dont l&apos;eau confère sagesse et clairvoyance.{" "}
+                <em>Odin lui-même sacrifia un œil pour boire à sa source.</em>
               </p>
             </div>
 
@@ -188,8 +190,11 @@ export default function Home() {
                 <span className="pinyin">mìmì</span>
               </div>
               <p className="definition">
-                En chinois, <em>秘密</em> signifie <em>secret</em>. Le mot évoque le savoir caché,
-                la connaissance qui se transmet à ceux qui savent regarder.
+                En chinois,{" "}
+                <em>秘密</em>{" "}
+                signifie{" "}
+                <em>secret</em>. Le mot évoque le savoir caché, la connaissance qui se
+                transmet à ceux qui savent regarder.
               </p>
             </div>
 

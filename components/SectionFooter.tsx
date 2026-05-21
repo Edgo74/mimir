@@ -9,8 +9,7 @@ export function SectionFooter({
 }) {
   return (
     <div className="section-footer">
-      <span>mimir · landing v3 · 2026</span>
-      <div className="right">
+      <div className="right" style={{ marginLeft: "auto" }}>
         <span>
           Section {index} / {total}
         </span>

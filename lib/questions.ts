@@ -90,11 +90,36 @@ export const QUESTIONS: Question[] = [
     ],
   },
   {
+    id: "agents",
+    type: "single",
+    title: "Utilisez-vous des bots ou des agents IA ?",
+    subtitle: "Au-delà d'un simple chat — des assistants qui exécutent des tâches.",
+    choices: [
+      { id: "no", label: "Non, pas du tout", score: 2 },
+      { id: "explore", label: "On explore, sans déploiement", score: 6 },
+      { id: "pilot", label: "Pilote en cours sur 1 ou 2 cas d'usage", score: 12 },
+      { id: "prod", label: "Oui, intégrés dans nos workflows", score: 18 },
+    ],
+  },
+  {
+    id: "workflow",
+    type: "single",
+    title: "Avez-vous un système d'autorisation ou de workflow ?",
+    subtitle: "Pour cadrer qui peut utiliser quoi, sur quelles données, avec quelle validation.",
+    choices: [
+      { id: "no", label: "Non, chacun fait à sa manière", score: 2 },
+      { id: "informal", label: "Règles orales, pas formalisées", score: 5 },
+      { id: "written", label: "Procédures écrites mais manuelles", score: 10 },
+      { id: "tooled", label: "Outils de workflow / gouvernance en place", score: 16 },
+    ],
+  },
+  {
     id: "budget",
     type: "single",
     title: "Quel budget formation par collaborateur et par an ?",
     subtitle: "Pour calibrer vos options de financement OPCO.",
     choices: [
+      { id: "none", label: "Pas de budget alloué", score: 0 },
       { id: "low", label: "Moins de 1 000 €", score: 4 },
       { id: "mid", label: "1 000 € — 2 500 €", score: 10 },
       { id: "high", label: "Plus de 2 500 €", score: 14 },
