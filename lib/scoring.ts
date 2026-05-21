@@ -139,12 +139,24 @@ export function humanizeAnswers(
       return;
     }
 
+    // Resolve a human-readable label for a choice id.
+    // Falls back to description, then to "Niveau {id}", then to the raw id.
+    const resolveLabel = (id: string): string => {
+      const choice = q.choices.find((c) => c.id === id);
+      if (!choice) return id;
+      const lbl = choice.label?.trim();
+      if (lbl) {
+        return choice.description ? `${lbl} — ${choice.description}` : lbl;
+      }
+      if (choice.description) return `Niveau ${id} — ${choice.description}`;
+      return `Niveau ${id}`;
+    };
+
     let value: string;
     if (Array.isArray(raw)) {
-      const labels = raw.map((id) => q.choices.find((c) => c.id === id)?.label ?? id);
-      value = labels.join(" · ");
+      value = raw.map(resolveLabel).join(" · ");
     } else {
-      value = q.choices.find((c) => c.id === raw)?.label ?? String(raw);
+      value = resolveLabel(String(raw));
     }
 
     // Append free-text precision (e.g. tools_other, chronophage_other)

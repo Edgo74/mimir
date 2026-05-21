@@ -99,7 +99,7 @@ export default function Home() {
           />
           <KpiCell
             ix="— 03 · Échéance"
-            valueHtml={`09/26<span class="unit">— FE</span>`}
+            valueHtml={`09/26<span class="unit"></span>`}
             label="facture électronique obligatoire pour toutes les PME zéro cabinet pleinement prêt."
             source="DGFiP"
           />
@@ -236,7 +236,7 @@ export default function Home() {
             what="Président · 15 collab."
           />
           <TestimonialCard
-            quote="Le comptable classique est voué à disparaître. L'IA est déjà bonne — il faut former, vite."
+            quote="Le comptable classique est voué à disparaître. L'IA est déjà bonne il faut former, vite."
             who="Tino M."
             what="Grand groupe · 2 000 collab."
           />
