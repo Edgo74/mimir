@@ -9,6 +9,7 @@ export function ChoiceButton({
   onClick,
   index = 0,
   emoji,
+  description,
   large,
   multi,
 }: {
@@ -17,6 +18,7 @@ export function ChoiceButton({
   onClick?: () => void;
   index?: number;
   emoji?: string;
+  description?: string;
   large?: boolean;
   multi?: boolean;
 }) {
@@ -35,8 +37,13 @@ export function ChoiceButton({
           {emoji}
         </span>
       )}
-      <span className={`choice-label ${large ? "large" : ""}`}>{children}</span>
-      {!large && (
+      <span className="choice-content">
+        <span className={`choice-label ${large ? "large" : ""}`}>{children}</span>
+        {description && (
+          <span className="choice-description">{description}</span>
+        )}
+      </span>
+      {!large && !description && (
         <span className={`choice-tick ${multi ? "square" : "round"}`}>
           <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
             <path

@@ -129,22 +129,50 @@ export default function DiagnosticPage() {
                   )}
 
                   {q.type === "multi" && (
-                    <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                      {q.choices.map((c, i) => {
-                        const sel = ((answers[q.id] as string[]) ?? []).includes(c.id);
-                        return (
-                          <ChoiceButton
-                            key={c.id}
-                            index={i}
-                            multi
-                            selected={sel}
-                            onClick={() => toggleMulti(c.id)}
-                          >
-                            {c.label}
-                          </ChoiceButton>
-                        );
-                      })}
-                    </div>
+                    <>
+                      <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                        {q.choices.map((c, i) => {
+                          const sel = ((answers[q.id] as string[]) ?? []).includes(c.id);
+                          return (
+                            <ChoiceButton
+                              key={c.id}
+                              index={i}
+                              multi
+                              selected={sel}
+                              onClick={() => toggleMulti(c.id)}
+                            >
+                              {c.label}
+                            </ChoiceButton>
+                          );
+                        })}
+                      </div>
+
+                      {/* Free-text precision when "Autre" is selected on any multi question */}
+                      {q.choices.some((c) => c.id === "other") &&
+                        ((answers[q.id] as string[]) ?? []).includes("other") && (
+                          <OtherInput
+                            questionId={q.id}
+                            label={
+                              q.id === "tools"
+                                ? "Précisez quel(s) autre(s) outil(s)"
+                                : q.id === "chronophage"
+                                ? "Précisez quelle(s) autre(s) tâche(s)"
+                                : "Précisez"
+                            }
+                            placeholder={
+                              q.id === "tools"
+                                ? "ex. ACD, Compta.com, Excel + macros…"
+                                : q.id === "chronophage"
+                                ? "ex. clôtures mensuelles, gestion des notes de frais…"
+                                : "Précisez ici…"
+                            }
+                            value={(answers[`${q.id}_other`] as string) ?? ""}
+                            onChange={(v) =>
+                              setAnswers((a) => ({ ...a, [`${q.id}_other`]: v }))
+                            }
+                          />
+                        )}
+                    </>
                   )}
 
                   {q.type === "scale" && (
@@ -161,6 +189,7 @@ export default function DiagnosticPage() {
                           index={i}
                           large
                           emoji={c.emoji}
+                          description={c.description}
                           selected={answers[q.id] === c.id}
                           onClick={() => selectSingle(c.id)}
                         >
@@ -207,5 +236,73 @@ export default function DiagnosticPage() {
         </main>
       </div>
     </>
+  );
+}
+
+function OtherInput({
+  questionId,
+  label,
+  placeholder,
+  value,
+  onChange,
+}: {
+  questionId: string;
+  label: string;
+  placeholder: string;
+  value: string;
+  onChange: (v: string) => void;
+}) {
+  const inputId = `${questionId}-other`;
+  return (
+    <motion.div
+      initial={{ opacity: 0, height: 0 }}
+      animate={{ opacity: 1, height: "auto" }}
+      transition={{ duration: 0.25 }}
+      style={{ marginTop: "12px", overflow: "hidden" }}
+    >
+      <label
+        htmlFor={inputId}
+        style={{
+          display: "block",
+          fontFamily: "var(--font-jetbrains-mono), monospace",
+          fontSize: "10.5px",
+          letterSpacing: "0.18em",
+          textTransform: "uppercase",
+          color: "var(--cyan-neon)",
+          fontWeight: 600,
+          marginBottom: "10px",
+        }}
+      >
+        {label}
+      </label>
+      <input
+        id={inputId}
+        type="text"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder={placeholder}
+        style={{
+          width: "100%",
+          height: "48px",
+          padding: "0 16px",
+          background: "rgba(46, 91, 168, 0.08)",
+          border: "1px solid var(--rule-dark)",
+          borderRadius: "8px",
+          color: "#fff",
+          fontFamily: "var(--font-inter), sans-serif",
+          fontSize: "15px",
+          outline: "none",
+          transition: "border-color 0.15s, background 0.15s",
+        }}
+        onFocus={(e) => {
+          e.currentTarget.style.borderColor = "var(--cyan-neon)";
+          e.currentTarget.style.background = "rgba(46, 91, 168, 0.14)";
+        }}
+        onBlur={(e) => {
+          e.currentTarget.style.borderColor = "var(--rule-dark)";
+          e.currentTarget.style.background = "rgba(46, 91, 168, 0.08)";
+        }}
+      />
+    </motion.div>
   );
 }

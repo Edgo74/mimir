@@ -4,6 +4,7 @@ export type Choice = {
   id: string;
   label: string;
   emoji?: string;
+  description?: string;
   score?: number;
 };
 
@@ -46,20 +47,20 @@ export const QUESTIONS: Question[] = [
     id: "maturity",
     type: "scale",
     title: "Quelle est la maturité IA de votre équipe ?",
-    subtitle: "De 1 (jamais entendu parler) à 5 (utilisée au quotidien).",
+    subtitle: "De 1 (jamais utilisé) à 5 (au quotidien).",
     choices: [
-      { id: "1", label: "1", emoji: "😶", score: 2 },
-      { id: "2", label: "2", emoji: "🤔", score: 6 },
-      { id: "3", label: "3", emoji: "🙂", score: 10 },
-      { id: "4", label: "4", emoji: "😎", score: 14 },
-      { id: "5", label: "5", emoji: "🚀", score: 18 },
+      { id: "1", label: "", emoji: "😶", description: "On n'a jamais utilisé l'IA", score: 2 },
+      { id: "2", label: "", emoji: "🤔", description: "On en a entendu parler, on a testé une ou deux fois", score: 6 },
+      { id: "3", label: "", emoji: "🙂", description: "On l'utilise de temps en temps, sans vraie méthode", score: 10 },
+      { id: "4", label: "", emoji: "😎", description: "On l'intègre régulièrement dans notre travail", score: 14 },
+      { id: "5", label: "", emoji: "🚀", description: "L'IA fait partie de notre quotidien professionnel", score: 18 },
     ],
   },
   {
     id: "chronophage",
     type: "multi",
     title: "Quelles tâches sont les plus chronophages ?",
-    subtitle: "Cochez tout ce qui s'applique — on s'en servira pour vos recommandations.",
+    subtitle: "Cochez tout ce qui s'applique on s'en servira pour vos recommandations.",
     choices: [
       { id: "saisie", label: "Saisie / collecte des pièces", score: 3 },
       { id: "tva", label: "Déclarations TVA", score: 3 },
@@ -67,6 +68,7 @@ export const QUESTIONS: Question[] = [
       { id: "lettres", label: "Lettres de mission", score: 2 },
       { id: "paie", label: "Gestion de la paie", score: 2 },
       { id: "mails", label: "Gestion des mails", score: 2 },
+      { id: "other", label: "Autre", score: 1 },
     ],
   },
   {
@@ -93,7 +95,7 @@ export const QUESTIONS: Question[] = [
     id: "agents",
     type: "single",
     title: "Utilisez-vous des bots ou des agents IA ?",
-    subtitle: "Au-delà d'un simple chat — des assistants qui exécutent des tâches.",
+    subtitle: "Au-delà d'un simple chat des assistants qui exécutent des tâches.",
     choices: [
       { id: "no", label: "Non, pas du tout", score: 2 },
       { id: "explore", label: "On explore, sans déploiement", score: 6 },
@@ -129,7 +131,7 @@ export const QUESTIONS: Question[] = [
     id: "blocker",
     type: "single",
     title: "Quel est votre principal frein au déploiement IA ?",
-    subtitle: "Une seule réponse — la plus déterminante.",
+    subtitle: "Une seule réponse la plus déterminante.",
     choices: [
       { id: "rgpd", label: "RGPD et secret professionnel", score: 5 },
       { id: "skills", label: "Manque de compétences internes", score: 5 },

@@ -94,8 +94,21 @@ export default function ResultatsPage() {
             >
               <span className="res-roi-icon" aria-hidden />
               <div>
+                <div
+                  style={{
+                    fontFamily: "var(--font-jetbrains-mono), monospace",
+                    fontSize: "10.5px",
+                    fontWeight: 600,
+                    letterSpacing: "0.20em",
+                    textTransform: "uppercase",
+                    color: "var(--cyan-neon)",
+                    marginBottom: "6px",
+                  }}
+                >
+                  Potentiel estimé
+                </div>
                 <div className="res-roi-value">
-                  ~{hours}
+                  {hours}
                   <span className="small">h/mois</span>
                 </div>
                 <div className="res-roi-lbl">

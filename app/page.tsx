@@ -12,7 +12,6 @@ import { PhaseCard } from "@/components/PhaseCard";
 import { PriceCard } from "@/components/PriceCard";
 import { TestimonialCard } from "@/components/TestimonialCard";
 import { WellVisual } from "@/components/WellVisual";
-import { CodeDisplay } from "@/components/CodeDisplay";
 
 export default function Home() {
   return (
@@ -123,7 +122,7 @@ export default function Home() {
             rune="ᚨ"
             numLabel="Phase 01 · Audit"
             titleHtml={`Audit <em>360°</em>`}
-            when="Semaines 1 → 2"
+            when="Semaines 1 à 2"
             description="Cartographie des process, des outils déjà en place, des points de friction RGPD et secret professionnel. Nous comprenons votre cabinet avant de proposer quoi que ce soit."
             livrables={[
               "Rapport diagnostic 360°",
@@ -135,7 +134,7 @@ export default function Home() {
             rune="ᛈ"
             numLabel="Phase 02 · Plan IA"
             titleHtml={`Plan d'<em>action</em>`}
-            when="Semaines 3 → 4"
+            when="Semaines 3 à 4"
             description="Roadmap 90 jours priorisée par impact, sélection d'outils éprouvés sur votre stack, gouvernance et cadre opérationnel conformes à l'AI Act."
             livrables={[
               "Roadmap 90 jours priorisée",
@@ -147,7 +146,7 @@ export default function Home() {
             rune="ᚠ"
             numLabel="Phase 03 · Formation"
             titleHtml={`Formation <em>& transmission</em>`}
-            when="Mois 2 → 3"
+            when="Mois 2 à 3"
             description="Acculturation de l'équipe, bibliothèque de prompts métier prêts à l'emploi, coach IA dédié pendant 3 mois. À la fin, vous opérez seuls c'est la promesse."
             livrables={[
               "Formation Qualiopi équipe",
@@ -329,11 +328,146 @@ export default function Home() {
             </div>
           </div>
 
-          <CodeDisplay />
+          <aside
+            style={{
+              background: "rgba(12, 15, 26, 0.55)",
+              border: "1px solid rgba(255, 255, 255, 0.12)",
+              borderRadius: "14px",
+              padding: "32px 32px 28px",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+                fontFamily: "var(--font-jetbrains-mono), monospace",
+                fontSize: "11px",
+                fontWeight: 600,
+                letterSpacing: "0.20em",
+                textTransform: "uppercase",
+                color: "var(--cyan-neon)",
+                paddingBottom: "20px",
+                borderBottom: "1px solid rgba(255, 255, 255, 0.10)",
+                marginBottom: "20px",
+              }}
+            >
+              <span
+                style={{
+                  width: "6px",
+                  height: "6px",
+                  borderRadius: "50%",
+                  background: "var(--cyan-neon)",
+                }}
+              />
+              Ce que vous obtenez
+            </div>
+
+            <Deliverable
+              num="01"
+              title="Score IA cabinet"
+              detail="Une note sur 100, calibrée sur la taille et la maturité de votre cabinet."
+            />
+            <Deliverable
+              num="02"
+              title="Plan d'action 90 jours"
+              detail="Trois chantiers prioritaires personnalisés sur vos réponses."
+            />
+            <Deliverable
+              num="03"
+              title="Restitution dédiée"
+              detail="45 minutes en visio avec un expert, sans engagement."
+              last
+            />
+
+            <div
+              style={{
+                marginTop: "8px",
+                paddingTop: "20px",
+                borderTop: "1px dashed rgba(255, 255, 255, 0.14)",
+                display: "flex",
+                gap: "18px",
+                flexWrap: "wrap",
+                justifyContent: "space-between",
+                fontFamily: "var(--font-jetbrains-mono), monospace",
+                fontSize: "10.5px",
+                fontWeight: 600,
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
+                color: "rgba(255, 255, 255, 0.55)",
+              }}
+            >
+              <span>10 questions</span>
+              <span>· 2 minutes</span>
+              <span style={{ color: "var(--cyan-neon)" }}>· 100 % gratuit</span>
+            </div>
+          </aside>
         </div>
       </section>
 
       <Footer />
     </>
+  );
+}
+
+function Deliverable({
+  num,
+  title,
+  detail,
+  last,
+}: {
+  num: string;
+  title: string;
+  detail: string;
+  last?: boolean;
+}) {
+  return (
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "40px 1fr",
+        gap: "16px",
+        padding: "14px 0",
+        borderBottom: last ? "none" : "1px dashed rgba(255, 255, 255, 0.10)",
+      }}
+    >
+      <div
+        style={{
+          fontFamily: "var(--font-syne), sans-serif",
+          fontSize: "26px",
+          fontWeight: 700,
+          color: "var(--cyan-neon)",
+          letterSpacing: "-0.6px",
+          lineHeight: 1,
+        }}
+      >
+        {num}
+      </div>
+      <div>
+        <div
+          style={{
+            fontFamily: "var(--font-syne), sans-serif",
+            fontSize: "17px",
+            fontWeight: 700,
+            color: "#fff",
+            letterSpacing: "-0.3px",
+            lineHeight: 1.2,
+            marginBottom: "4px",
+          }}
+        >
+          {title}
+        </div>
+        <div
+          style={{
+            fontFamily: "var(--font-inter), sans-serif",
+            fontSize: "13.5px",
+            color: "rgba(255, 255, 255, 0.62)",
+            lineHeight: 1.5,
+          }}
+        >
+          {detail}
+        </div>
+      </div>
+    </div>
   );
 }

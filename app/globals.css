@@ -1355,9 +1355,9 @@ svg {
 }
 .choice-btn.is-large {
   flex-direction: column;
-  justify-content: center;
-  padding: 28px 16px;
-  gap: 12px;
+  justify-content: flex-start;
+  padding: 24px 12px 20px;
+  gap: 14px;
 }
 .choice-emoji {
   font-size: 22px;
@@ -1367,8 +1367,19 @@ svg {
 .choice-emoji.large {
   font-size: 36px;
 }
-.choice-label {
+.choice-content {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.choice-btn.is-large .choice-content {
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+.choice-label {
   font-family: var(--font-inter), sans-serif;
   font-size: 16px;
   font-weight: 500;
@@ -1380,6 +1391,26 @@ svg {
   font-size: 22px;
   font-weight: 700;
   text-align: center;
+}
+.choice-label:empty {
+  display: none;
+}
+.choice-description {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-on-dark-muted);
+  line-height: 1.5;
+}
+.choice-btn.is-large .choice-description {
+  font-size: 11px;
+  line-height: 1.45;
+  max-width: 22ch;
+  text-align: center;
+  text-wrap: balance;
+}
+.choice-btn.is-selected .choice-description {
+  color: rgba(255, 255, 255, 0.78);
 }
 .choice-tick {
   display: inline-flex;
