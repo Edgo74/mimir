@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { FormEvent, useState } from "react";
-import { Answers } from "@/lib/scoring";
+import { Answers, humanizeAnswers } from "@/lib/scoring";
 import { Kicker } from "@/components/Kicker";
 import { Button } from "@/components/Button";
 
@@ -26,11 +26,13 @@ export function EmailGate({
     setError(null);
     setLoading(true);
     try {
+      // Transform raw choice IDs into human-readable Q/A pairs before sending
+      const payload = humanizeAnswers(answers, { cabinet, email });
       try {
         await fetch(FORMSPREE_ENDPOINT, {
           method: "POST",
           headers: { Accept: "application/json", "Content-Type": "application/json" },
-          body: JSON.stringify({ email, cabinet, ...answers }),
+          body: JSON.stringify(payload),
         });
       } catch {
         /* swallow during demo */

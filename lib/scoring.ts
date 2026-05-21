@@ -109,3 +109,52 @@ export function estimatedHoursSaved(answers: Answers): { hours: number; staff: n
   const hours = Math.round(chrono.length * hoursPerTask * (staff / 4));
   return { hours: Math.max(20, hours), staff };
 }
+
+/**
+ * Transform raw answers (choice IDs) into a human-readable payload for
+ * Formspree / email notifications. Each key becomes a numbered question
+ * label, each value becomes the human label of the chosen option(s).
+ * Includes free-text precisions from "_other" fields and a final summary.
+ */
+export function humanizeAnswers(
+  answers: Answers,
+  meta?: { cabinet?: string; email?: string }
+): Record<string, string | number> {
+  const out: Record<string, string | number> = {};
+
+  if (meta?.cabinet) out["Cabinet"] = meta.cabinet;
+  if (meta?.email) out["Email"] = meta.email;
+  out["Score IA cabinet"] = `${computeScore(answers)} / 100`;
+  out["Quartile"] = quartile(computeScore(answers)).label;
+  const roi = estimatedHoursSaved(answers);
+  out["Potentiel estimé"] = `${roi.hours} h/mois sur ${roi.staff} ETP`;
+
+  QUESTIONS.forEach((q, i) => {
+    const raw = answers[q.id];
+    const num = String(i + 1).padStart(2, "0");
+    const key = `Q${num} — ${q.title}`;
+
+    if (raw == null || (Array.isArray(raw) && raw.length === 0)) {
+      out[key] = "(sans réponse)";
+      return;
+    }
+
+    let value: string;
+    if (Array.isArray(raw)) {
+      const labels = raw.map((id) => q.choices.find((c) => c.id === id)?.label ?? id);
+      value = labels.join(" · ");
+    } else {
+      value = q.choices.find((c) => c.id === raw)?.label ?? String(raw);
+    }
+
+    // Append free-text precision (e.g. tools_other, chronophage_other)
+    const other = answers[`${q.id}_other`];
+    if (typeof other === "string" && other.trim()) {
+      value += ` — autre : "${other.trim()}"`;
+    }
+
+    out[key] = value;
+  });
+
+  return out;
+}
